@@ -25,6 +25,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Foto Pegawai</th>
                             <th>Qr Code</th>
                             <th>Nama Pegawai</th>
                             <th>Jabatan</th>
@@ -36,6 +37,9 @@
                         @foreach ($daftar_pegawai as $key_pegawai => $pegawai)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <img src="{{ asset($pegawai->fotopegawai) }}" alt="Can't load image." width="120px">
+                            </td>
                             <td>{{ $pegawai->qrcode_p }}</td>
                             <td>{{ $pegawai->namapegawai }}</td>
                             <td>{{ $pegawai->jabatan }}</td>

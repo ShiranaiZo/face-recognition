@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Daftar_pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
+use App\Model\Daftar_pegawai;
 
 class DaftarPegawaiController extends Controller
 {
@@ -37,7 +39,39 @@ class DaftarPegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_method', '_token');
+        $data = $request->except('_method', '_token', 'fotopegawai');
+
+        if($request->get('fotopegawai') || $request->file('fotopegawai')){
+            $folderPath = "attachments/images/foto_pegawai/";
+
+            if ($request->get('fileOrCamera') == 1) {
+                $img_real = $request->file('fotopegawai');
+                $image_type = $img_real->getClientOriginalExtension();
+
+                $fileName = uniqid() . '.' . $image_type;
+
+                $file = $folderPath . $fileName;
+
+                $img_real->move($folderPath,$fileName);
+            }else{
+                $img = $request->get('fotopegawai');
+
+                $image_parts = explode(";base64,", $img);
+                $img_real = base64_decode($image_parts[1]);
+
+                $image_type_aux = explode("image/", $image_parts[0]);
+
+                $image_type = $image_type_aux[1];
+                $fileName = uniqid() . '.' . $image_type;
+
+                $file = $folderPath . $fileName;
+
+                \File::put(public_path().'/'.$folderPath.'/'.$fileName, $img_real);
+            }
+
+
+            $data['fotopegawai'] = $file;
+        }
 
         $daftar_pegawai = Daftar_pegawai::create($data);
 
@@ -77,7 +111,39 @@ class DaftarPegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->except('_method', '_token');
+        $data = $request->except('_method', '_token', 'fotopegawai');
+
+        if($request->get('fotopegawai') || $request->file('fotopegawai')){
+            $folderPath = "attachments/images/foto_pegawai/";
+
+            if ($request->get('fileOrCamera') == 1) {
+                $img_real = $request->file('fotopegawai');
+                $image_type = $img_real->getClientOriginalExtension();
+
+                $fileName = uniqid() . '.' . $image_type;
+
+                $file = $folderPath . $fileName;
+
+                $img_real->move($folderPath,$fileName);
+            }else{
+                $img = $request->get('fotopegawai');
+
+                $image_parts = explode(";base64,", $img);
+                $img_real = base64_decode($image_parts[1]);
+
+                $image_type_aux = explode("image/", $image_parts[0]);
+
+                $image_type = $image_type_aux[1];
+                $fileName = uniqid() . '.' . $image_type;
+
+                $file = $folderPath . $fileName;
+
+                \File::put(public_path().'/'.$folderPath.'/'.$fileName, $img_real);
+            }
+
+
+            $data['fotopegawai'] = $file;
+        }
 
         $daftar_pegawai = Daftar_pegawai::find($id)->update($data);
 
