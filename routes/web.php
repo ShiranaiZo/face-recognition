@@ -25,8 +25,8 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
 	//super admin
-    Route::group(['middleware' => ['roles:1']], function() {
+    // Route::group(['middleware' => ['roles:1']], function() {
 		// *****************CRUD Users********************
 			Route::resource('users', 'UserController');
-	});
+	// });
 });
