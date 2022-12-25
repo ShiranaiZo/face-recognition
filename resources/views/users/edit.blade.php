@@ -27,7 +27,7 @@
                     @csrf
 
                     <div class="form-body">
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-4">
                                 <label>Name <span class="text-danger">*</span></label>
                             </div>
@@ -65,7 +65,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row">
                             <div class="col-md-4">

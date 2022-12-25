@@ -25,10 +25,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
+                            {{-- <th>Name</th> --}}
                             <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            {{-- <th>Email</th> --}}
+                            {{-- <th>Role</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -37,10 +37,10 @@
                         @foreach ($users as $key => $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
+                                {{-- <td>{{ $user->name }}</td> --}}
                                 <td>{{ $user->username }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ config('custom.roles.'.$user->role) }}</td>
+                                {{-- <td>{{ $user->email }}</td>
+                                <td>{{ config('custom.roles.'.$user->role) }}</td> --}}
                                 <td>
                                     <div class="buttons">
                                         <a href="{{ url('users/'.$user->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
