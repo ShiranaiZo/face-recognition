@@ -40,7 +40,7 @@
                             <td>
                                 <img src="{{ asset($pegawai->fotopegawai) }}" alt="Can't load image." width="120px">
                             </td>
-                            <td>{{ $pegawai->qrcode_p }}</td>
+                            <td>{!! $pegawai->qrcode_p ? \QrCode::size(100)->generate($pegawai->qrcode_p) : '' !!}</td>
                             <td>{{ $pegawai->namapegawai }}</td>
                             <td>{{ $pegawai->jabatan }}</td>
                             <td>

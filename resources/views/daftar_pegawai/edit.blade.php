@@ -52,8 +52,11 @@
                                 <label>Qr Code <span class="text-danger">*</span></label>
                             </div>
 
-                            <div class="col-md-8 form-group">
-                                <input type="text" id="qrcode_p" class="form-control  @error('qrcode_p') is-invalid @enderror" name="qrcode_p" placeholder="QR Code" value="{{ old('qrcode_p') ? old('qrcode_p') : $daftar_pegawai->qrcode_p }}">
+                            <div class="col-md-2 form-group">
+                                <div id="qr_code_wrap" style="width: 100px; height: 100px; background-color: #eee">
+                                    {!! \QrCode::size(100)->generate($daftar_pegawai->qrcode_p); !!}
+                                    <input type="hidden" id="qrcode_p" class ="form-control  @error('qrcode_p') is-invalid @enderror" name="qrcode_p" placeholder="QR Code" value="{{ $daftar_pegawai->qrcode_p }}">
+                                </div>
                             </div>
                         </div>
 

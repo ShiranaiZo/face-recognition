@@ -52,8 +52,11 @@
                                 <label>Qr Code <span class="text-danger">*</span></label>
                             </div>
 
-                            <div class="col-md-8 form-group">
-                                <input type="text" id="qrcode_p" class="form-control  @error('qrcode_p') is-invalid @enderror" name="qrcode_p" placeholder="QR Code" value="{{ old('qrcode_p') }}">
+                            <div class="col-md-2 form-group">
+                                <div id="qr_code_wrap" style="width: 100px; height: 100px; background-color: #eee">
+                                    {!! \QrCode::size(100)->generate($qr_code); !!}
+                                    <input type="hidden" id="qrcode_p" class ="form-control  @error('qrcode_p') is-invalid @enderror" name="qrcode_p" placeholder="QR Code" value="{{ $qr_code }}">
+                                </div>
                             </div>
                         </div>
 
@@ -234,5 +237,9 @@
         $(document).on("change", "#fotopegawai_file", function () {
             preview_image.src=URL.createObjectURL(event.target.files[0]);
         });
+
+        function generateQRCode(uniqid) {
+            $('#qr_code_wrap').html(`{!! \QrCode::size(100)->generate('PGW-'.`+uniqid+`); !!}`)
+        }
     </script>
 @endsection

@@ -28,7 +28,8 @@ class DaftarPegawaiController extends Controller
      */
     public function create()
     {
-        return view('daftar_pegawai.create');
+        $results['qr_code'] = 'PGW-'.uniqid();
+        return view('daftar_pegawai.create', $results);
     }
 
     /**
