@@ -21,4 +21,11 @@
             <span>Daftar Pegawai</span>
         </a>
     </li>
+
+    <li class="sidebar-item {{ request()->is('data-barang*') ? 'active' : '' }}">
+        <a href="{{ url('data-barang') }}" class="sidebar-link">
+            <i class="bi bi-person-fill"></i>
+            <span>Data Barang</span>
+        </a>
+    </li>
 </ul>
