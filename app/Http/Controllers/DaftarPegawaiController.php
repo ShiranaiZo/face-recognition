@@ -100,6 +100,7 @@ class DaftarPegawaiController extends Controller
     {
         $result['daftar_pegawai'] = Daftar_pegawai::find($id);
 
+
         return view('daftar_pegawai.edit', $result);
     }
 
