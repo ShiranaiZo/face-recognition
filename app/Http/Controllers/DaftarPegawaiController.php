@@ -87,7 +87,7 @@ class DaftarPegawaiController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
