@@ -28,4 +28,11 @@
             <span>Data Barang</span>
         </a>
     </li>
+
+    <li class="sidebar-item {{ request()->is('riwayat*') ? 'active' : '' }}">
+        <a href="{{ url('riwayat') }}" class="sidebar-link">
+            <i class="bi bi-person-fill"></i>
+            <span>Riwayat</span>
+        </a>
+    </li>
 </ul>

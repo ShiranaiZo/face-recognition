@@ -30,5 +30,6 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::resource('users', 'UserController');
 			Route::resource('daftar-pegawai', 'DaftarPegawaiController');
 			Route::resource('data-barang', 'DatabarangController');
+			Route::resource('riwayat', 'RiwayatController');
 	// });
 });
