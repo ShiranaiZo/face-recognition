@@ -72,8 +72,15 @@
                                 <label>Jenis <span class="text-danger">*</span></label>
                             </div>
 
-                            <div class="col-md-8 form-group">
-                                <input type="text" id="jenis" class="form-control  @error('jenis') is-invalid @enderror" name="jenis" placeholder="Jenis" value="{{ old('jenis') }}">
+                            <div class="row">
+                                <div class="col-12 col-md-8 offset-md-4 form-group">
+                                    <div class='form-check'>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="jenis" class="form-check-input">
+                                            <label for="jenis">Sekali pakai</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
