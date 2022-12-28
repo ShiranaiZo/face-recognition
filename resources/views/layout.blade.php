@@ -29,6 +29,17 @@
                             <div class="logo">
                                 <a href="index.html"><img width="50%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset=""></a>
                             </div>
+
+                            <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
+
+                                <div class="form-check form-switch fs-6">
+                                    <input class="form-check-input  me-0 d-none" type="checkbox" id="toggle-dark">
+                                    <label class="form-check-label"></label>
+                                </div>
+                            </div>
+                            <div class="sidebar-toggler  x">
+                                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                            </div>
                         </div>
                     </div>
 

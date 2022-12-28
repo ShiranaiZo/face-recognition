@@ -17,21 +17,21 @@
 
     <li class="sidebar-item {{ request()->is('daftar-pegawai*') ? 'active' : '' }}">
         <a href="{{ url('daftar-pegawai') }}" class="sidebar-link">
-            <i class="bi bi-person-fill"></i>
+            <i class="bi bi-file-earmark-person-fill"></i>
             <span>Daftar Pegawai</span>
         </a>
     </li>
 
     <li class="sidebar-item {{ request()->is('data-barang*') ? 'active' : '' }}">
         <a href="{{ url('data-barang') }}" class="sidebar-link">
-            <i class="bi bi-person-fill"></i>
+            <i class="bi bi-clipboard-data-fill"></i>
             <span>Data Barang</span>
         </a>
     </li>
 
     <li class="sidebar-item {{ request()->is('riwayat*') ? 'active' : '' }}">
         <a href="{{ url('riwayat') }}" class="sidebar-link">
-            <i class="bi bi-person-fill"></i>
+            <i class="bi bi-clock-fill"></i>
             <span>Riwayat</span>
         </a>
     </li>
