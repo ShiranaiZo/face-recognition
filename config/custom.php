@@ -8,4 +8,10 @@
             '99' => 'Not User',
         ],
 
+        'tujuan' => [
+            'PN' => 'penggunaan',
+            'PM' => 'peminjaman',
+            'K' => 'pengembalian',
+        ]
+
     ];
