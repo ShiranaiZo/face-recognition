@@ -138,12 +138,19 @@
             $.ajax({
                 url: "{{ url('face-recognition-training') }}",
                 type: 'GET',
+                beforeSend: function(){
+                    $('#training_btn').html(`<span id="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...`).attr('disabled', true)
+                },
                 success: function(res) {
                     Swal.fire({
                         icon: "success",
                         title: "Success"
                     })
                 },
+                complete: function(){
+                    $('#training_btn').html(`Training Data`).attr('disabled', false)
+                }
             });
        }
     </script>

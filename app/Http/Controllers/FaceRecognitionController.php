@@ -37,9 +37,8 @@ class FaceRecognitionController extends Controller
         }
 
         // Hapus Data sementara
-        for ($i=0; $i <= 30 ; $i++) {
-            File::deleteDirectory('face_recognition/datasementara/');
-        }
+        $all_files = File::allFiles('face_recognition/datasementara/');
+        File::Delete($all_files);
 
         return response()->json($process->getOutput());
     }
