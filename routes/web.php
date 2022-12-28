@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('', 'LoginController@checkLogin');
+Route::get('admin', 'LoginController@checkLogin');
 Route::post('login', 'LoginController@login');
 Route::get('logout', 'LoginController@logout');
 
@@ -20,6 +20,7 @@ Route::get('login', function () {
 })->name('login');
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('yare', 'CobaController@index');
     Route::get('dashboard', function () {
         return view('index');
     });
@@ -31,5 +32,6 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::resource('daftar-pegawai', 'DaftarPegawaiController');
 			Route::resource('data-barang', 'DatabarangController');
 			Route::resource('riwayat', 'RiwayatController');
+            Route::get('face-recognition-rekam', 'FaceRecognitionController@rekamDataWajah');
 	// });
 });
