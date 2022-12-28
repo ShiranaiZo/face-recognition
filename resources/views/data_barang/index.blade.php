@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Users')
+@section('title', 'Barang')
 
 @section('content')
     <section class="section">
@@ -42,7 +42,7 @@
                                 <td>{{ $barang->namabarang }}</td>
                                 <td>{!! $barang->qrcode_b ? \QrCode::size(100)->generate($barang->qrcode_b) : '' !!}</td>
                                 <td>{{ $barang->jumlah }}</td>
-                                <td>{{ $barang->jenis }}</td>
+                                <td>{{ $barang->jenis =="on" ? "Sekali pakai" : "Tidak Sekali Pakai" }}</td>
                                 <td>
                                     <div class="buttons">
                                         <a href="{{ url('data-barang/'.$barang->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">

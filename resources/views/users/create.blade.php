@@ -27,46 +27,6 @@
                     @csrf
 
                     <div class="form-body">
-                        {{-- <div class="row">
-                            <div class="col-md-4">
-                                <label>Name <span class="text-danger">*</span></label>
-                            </div>
-
-                            <div class="col-md-8 form-group">
-                                <input type="text" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Name" value="{{ old('name') }}">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Email <span class="text-danger">*</span></label>
-                            </div>
-
-                            <div class="col-md-8 form-group">
-                                <input type="text" id="email" class="form-control  @error('email') is-invalid @enderror" name="email" placeholder="Email" value="{{ old('email') }}">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Role <span class="text-danger">*</span></label>
-                            </div>
-
-                            <div class="col-md-8 form-group">
-                                <select class="form-select @error('role') is-invalid @enderror" name="role">
-                                    <option value="" {{ old('role') ? '' :'selected'}} disabled>Role</option>
-
-                                    @foreach (config('custom.roles') as $key_role => $role)
-                                        @if ($key_role == 99)
-                                            @continue;
-                                        @endif
-
-                                        <option value="{{ $key_role }}" {{ old('role') == $key_role ? 'selected' : '' }}>{{ $role }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Username <span class="text-danger">*</span></label>

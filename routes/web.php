@@ -10,28 +10,28 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
 
 Route::get('admin', 'LoginController@checkLogin');
-Route::post('login', 'LoginController@login');
-Route::get('logout', 'LoginController@logout');
+Route::get('', function () {
+    return view('face_recognitions.index');
+});
+Route::post('admin/login', 'LoginController@login');
+Route::get('admin/logout', 'LoginController@logout');
 
-Route::get('login', function () {
+Route::get('admin/login', function () {
     return view('login');
 })->name('login');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('yare', 'CobaController@index');
-    Route::get('dashboard', function () {
-        return view('index');
-    });
+    Route::get('admin/dashboard', 'DashboardController@index');
 
 	//super admin
     // Route::group(['middleware' => ['roles:1']], function() {
 		// *****************CRUD Users********************
-			Route::resource('users', 'UserController');
-			Route::resource('daftar-pegawai', 'DaftarPegawaiController');
-			Route::resource('data-barang', 'DatabarangController');
-			Route::resource('riwayat', 'RiwayatController');
-            Route::get('face-recognition-rekam', 'FaceRecognitionController@rekamDataWajah');
+			Route::resource('admin/users', 'UserController');
+			Route::resource('admin/daftar-pegawai', 'DaftarPegawaiController');
+			Route::resource('admin/data-barang', 'DatabarangController');
+			Route::resource('admin/riwayat', 'RiwayatController');
 	// });
 });

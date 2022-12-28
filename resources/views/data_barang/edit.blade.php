@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', "Edit | Users")
+@section('title', "Edit | Barang")
 
 @section('content')
     @if ($errors->any())
@@ -74,9 +74,9 @@
                             <div class="col-md-4">
                                 <label>Jenis <span class="text-danger">*</span></label>
                             </div>
-
                             <div class="col-md-8 form-group">
-                                <input type="text" id="jenis" class="form-control  @error('jenis') is-invalid @enderror" name="jenis" placeholder="Jenis" value="{{ old('jenis') ? old('jenis') : $data_barang->jenis  }}">
+                                            <input type="checkbox" id="jenis" name="jenis" class="form-check-input" {{ $data_barang->jenis =="on" ? "checked" : "" }}>
+                                            <label for="jenis">Sekali pakai</label>
                             </div>
                         </div>
 

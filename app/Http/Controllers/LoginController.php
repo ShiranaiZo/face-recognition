@@ -13,9 +13,9 @@ class LoginController extends Controller
     public function checkLogin()
     {
         if (Auth::check()) {
-            return redirect('dashboard');
+            return redirect('admin/dashboard');
         }else{
-            return redirect('login');
+            return redirect('admin/login');
         }
     }
 
@@ -33,10 +33,10 @@ class LoginController extends Controller
 	        'username' => $request->username,
 	        'password' => $request->password], $remember)
 	    ){
-	    	return redirect('/dashboard');
+	    	return redirect('admin/dashboard');
 	    }
 
-        return redirect('login')->with('error', 'The username or password is incorrect');
+        return redirect('admin/login')->with('error', 'The username or password is incorrect');
     }
 
     public function logout(Request $request)
@@ -47,6 +47,6 @@ class LoginController extends Controller
 	        $request->session()->invalidate();
 	    }
 
-	    return  redirect('login');
+	    return  redirect('admin/login');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', "Create | Users")
+@section('title', "Create | Barang")
 
 @section('content')
     @if ($errors->any())
@@ -71,14 +71,11 @@
                             <div class="col-md-4">
                                 <label>Jenis <span class="text-danger">*</span></label>
                             </div>
-
-                            <div class="row">
-                                <div class="col-12 col-md-8 offset-md-4 form-group">
-                                    <div class='form-check'>
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="jenis" class="form-check-input">
+                            <div class="col-md-8 form-group">
+                                <div class='form-check'>
+                                    <div class="checkbox">
+                                            <input type="checkbox" id="jenis" name="jenis" class="form-check-input">
                                             <label for="jenis">Sekali pakai</label>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +84,7 @@
                         <div class="col-sm-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-primary me-1 mb-1 submit_create_user" id="submit_create_user" onclick='preventDoubleClick("form_create_user", "submit_create_user")'>Submit</button>
 
-                            <a href="{{ url('users') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
+                            <a href="{{ url('data-barang') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
                         </div>
                     </div>
                 </form>

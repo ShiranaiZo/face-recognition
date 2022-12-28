@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', "Create | Users")
+@section('title', "Create | Daftar Pegawai")
 
 @section('content')
     @if ($errors->any())

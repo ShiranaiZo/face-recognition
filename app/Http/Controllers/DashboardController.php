@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $result['data_barang'] = Databarang::latest()->get();
-        return view('data_barang', $result);
+        $result['jumlahdata_barang'] = Databarang::latest()->get()->count();
+        return view('index', $result);
     }
 }

@@ -21,13 +21,9 @@
     </head>
 
     <body>
-        <div id="app">
-            <div id="sidebar" class="active">
-                <div class="sidebar-wrapper active">
-                    <div class="sidebar-brand-icon mt-3 ms-5">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="logo">
-                                <a href="index.html"><img width="50%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset=""></a>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="logo mt-3 ms-5">
+                                <a href="index.html"><img width="10%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset=""></a>
                             </div>
 
                             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -41,17 +37,13 @@
                                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                             </div>
                         </div>
-                    </div>
 
                     <div class="sidebar-menu">
-                        @include('sidebar')
                     </div>
-                </div>
-            </div>
 
             <div id="main" class='layout-navbar'>
                 <header class='mb-3'>
-                    @include('navbar')
+
                 </header>
 
                 <div id="main-content">
@@ -80,7 +72,6 @@
                     </footer>
                 </div>
             </div>
-        </div>
 
         <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
