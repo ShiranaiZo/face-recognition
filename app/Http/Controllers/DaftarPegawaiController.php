@@ -76,7 +76,7 @@ class DaftarPegawaiController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::create($data);
 
-        return redirect('daftar-pegawai')->with('success', 'Daftar Pegawai Tersimpan!');
+        return redirect('admin/daftar-pegawai')->with('success', 'Daftar Pegawai Tersimpan!');
     }
 
     /**
@@ -149,7 +149,7 @@ class DaftarPegawaiController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::find($id)->update($data);
 
-        return redirect('daftar-pegawai')->with('success', 'Daftar Pegawai Terubah!');
+        return redirect('admin/daftar-pegawai')->with('success', 'Daftar Pegawai Terubah!');
     }
 
     /**
@@ -162,6 +162,6 @@ class DaftarPegawaiController extends Controller
     {
         $pegawai = Daftar_pegawai::find($id)->delete();
 
-        return redirect('daftar-pegawai')->with('success', 'Pegawai Dihapus!');
+        return redirect('admin/daftar-pegawai')->with('success', 'Pegawai Dihapus!');
     }
 }

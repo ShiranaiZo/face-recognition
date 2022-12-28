@@ -40,7 +40,7 @@ class DatabarangController extends Controller
         $data = $request->except('_method', '_token');
         $data_barang = Databarang::create($data);
 
-        return redirect('data-barang')->with('success', 'Data Barang Tersimpan!');
+        return redirect('admin/data-barang')->with('success', 'Data Barang Tersimpan!');
     }
 
     /**
@@ -79,7 +79,7 @@ class DatabarangController extends Controller
         $data = $request->except('_method', '_token');
         $data_barang = Databarang::find($id)->update($data);
 
-        return redirect('data-barang')->with('success', 'Data Barang Diubah!');
+        return redirect('admin/data-barang')->with('success', 'Data Barang Diubah!');
     }
 
     /**
@@ -92,6 +92,6 @@ class DatabarangController extends Controller
     {
         $barang = Databarang::find($id)->delete();
 
-        return redirect('data-barang')->with('success', 'Barang Dihapus!');
+        return redirect('admin/data-barang')->with('success', 'Barang Dihapus!');
     }
 }
