@@ -22,7 +22,7 @@
 
         <div class="card-content">
             <div class="card-body">
-                <form method="POST" action="{{ url('daftar-pegawai') }}" id="form_create_user" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('admin/daftar-pegawai') }}" id="form_create_user" enctype="multipart/form-data">
                     @method('POST')
                     @csrf
 
