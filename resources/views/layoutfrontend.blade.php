@@ -21,7 +21,20 @@
     </head>
 
     <body>
-                        <div class="d-flex justify-content-center align-items-center">
+        <nav class="navbar navbar-light mb-4" style="background-color: white;">
+            <div class="container d-block">
+                <a class="navbar-brand ms-4" href="{{ url(\Request::url()) }}">
+                    <img width="15%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset="">
+                </a>
+            </div>
+        </nav>
+
+
+        <div class="container">
+            @yield('content')
+        </div>
+
+                        {{-- <div class="d-flex justify-content-center align-items-center">
                             <div class="logo mt-3 ms-5">
                                 <a href="index.html"><img width="10%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset=""></a>
                             </div>
@@ -39,17 +52,17 @@
                         </div>
 
                     <div class="sidebar-menu">
-                    </div>
+                    </div> --}}
 
             <div id="main" class='layout-navbar'>
-                <header class='mb-3'>
+                {{-- <header class='mb-3'>
 
-                </header>
+                </header> --}}
 
                 <div id="main-content">
-                    <div class="page-heading">
+                    {{-- <div class="page-heading">
                         @yield('content')
-                    </div>
+                    </div> --}}
 
                     <footer>
                         <div class="footer clearfix mb-0 text-muted">

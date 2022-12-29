@@ -22,7 +22,7 @@
 
         <div class="card-content">
             <div class="card-body">
-                <form method="POST" action="{{ url('daftar-pegawai') }}" id="form_create_user" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('admin/daftar-pegawai') }}" id="form_create_user" enctype="multipart/form-data">
                     @method('POST')
                     @csrf
 
@@ -74,7 +74,13 @@
 
                             <div class="col-md-4 form-group">
 
-                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto">
+                                    <input type="file" id="fotopegawai_file" class="form-control  @error('fotopegawai') is-invalid @enderror" name="fotopegawai" placeholder="Foto Pegawai" value="{{ old('fotopegawai') }}">
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2">
+
+                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto" disabled>
                                         <i class="bi bi-camera-fill"></i>
                                     </button>
                                 </div>
@@ -175,9 +181,9 @@
         $('#modal_ambil_foto').on('shown.bs.modal', function (e) {
             // Webcam
             Webcam.set({
-                width: 320,
-                height: 240,
-                image_format: 'png',
+                width: 640,
+                height: 480,
+                image_format: 'jpg',
                 jpeg_quality: 90
             });
 
@@ -232,6 +238,17 @@
 
         function generateQRCode(uniqid) {
             $('#qr_code_wrap').html(`{!! \QrCode::size(100)->generate('PGW-'.`+uniqid+`); !!}`)
+        }
+
+        function rekamDataWajah() {
+            $.ajax({
+                    url: "{{ url('face-recognition-rekam') }}",
+                    type: 'GET',
+                    success: function(res) {
+                        $("#fotopegawai_camera").val(res);
+                        $('#preview_image').attr('src', "{{ asset('face_recognition/datasementara/') }}"+'/'+res+".30.jpg")
+                    }
+                });
         }
     </script>
 @endsection

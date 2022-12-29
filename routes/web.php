@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin', 'LoginController@checkLogin');
@@ -34,5 +33,9 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::resource('admin/daftar-pegawai', 'DaftarPegawaiController');
 			Route::resource('admin/data-barang', 'DatabarangController');
 			Route::resource('admin/riwayat', 'RiwayatController');
+
+            // Face Recognition
+            Route::get('face-recognition-rekam', 'FaceRecognitionController@rekamDataWajah');
+            Route::get('face-recognition-training', 'FaceRecognitionController@trainingData');
 	// });
 });

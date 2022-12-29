@@ -41,34 +41,33 @@ class DaftarPegawaiController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_method', '_token', 'fotopegawai');
+        if($request->get('fotopegawai')){
+            $file = "attachments/images/foto_pegawai/".$request->get('fotopegawai').".jpg";
 
-        if($request->get('fotopegawai') || $request->file('fotopegawai')){
-            $folderPath = "attachments/images/foto_pegawai/";
+            // if ($request->get('fileOrCamera') == 1) {
+            //     $img_real = $request->file('fotopegawai');
+            //     $image_type = $img_real->getClientOriginalExtension();
 
-            if ($request->get('fileOrCamera') == 1) {
-                $img_real = $request->file('fotopegawai');
-                $image_type = $img_real->getClientOriginalExtension();
+            //     $fileName = uniqid() . '.' . $image_type;
 
-                $fileName = uniqid() . '.' . $image_type;
+            //     $file = $folderPath . $fileName;
 
-                $file = $folderPath . $fileName;
+            //     $img_real->move($folderPath,$fileName);
+            // }else{
+            //     $img = $request->get('fotopegawai');
 
-                $img_real->move($folderPath,$fileName);
-            }else{
-                $img = $request->get('fotopegawai');
+            //     $image_parts = explode(";base64,", $img);
+            //     $img_real = base64_decode($image_parts[1]);
 
-                $image_parts = explode(";base64,", $img);
-                $img_real = base64_decode($image_parts[1]);
+            //     $image_type_aux = explode("image/", $image_parts[0]);
 
-                $image_type_aux = explode("image/", $image_parts[0]);
+            //     $image_type = $image_type_aux[1];
+            //     $fileName = uniqid() . '.' . $image_type;
 
-                $image_type = $image_type_aux[1];
-                $fileName = uniqid() . '.' . $image_type;
+            //     $file = $folderPath . $fileName;
 
-                $file = $folderPath . $fileName;
-
-                \File::put(public_path().'/'.$folderPath.'/'.$fileName, $img_real);
-            }
+            //     \File::put(public_path().'/'.$folderPath.'/'.$fileName, $img_real);
+            // }
 
 
             $data['fotopegawai'] = $file;
@@ -76,7 +75,19 @@ class DaftarPegawaiController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::create($data);
 
-        return redirect('admin/daftar-pegawai')->with('success', 'Daftar Pegawai Tersimpan!');
+        for ($i=0; $i <= 30; $i++) {
+            $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
+
+            if ($i < 30){
+                $folderFilePathTujuan = "face_recognition/dataset/User.".$daftar_pegawai->id.'.'.$i.".jpg";
+            }else{
+                $folderFilePathTujuan = $file;
+            }
+
+            rename($folderFilePathSebelum, $folderFilePathTujuan);
+        }
+
+        return redirect('daftar-pegawai')->with('success', 'Daftar Pegawai Tersimpan!');
     }
 
     /**
@@ -115,39 +126,53 @@ class DaftarPegawaiController extends Controller
     {
         $data = $request->except('_method', '_token', 'fotopegawai');
 
-        if($request->get('fotopegawai') || $request->file('fotopegawai')){
-            $folderPath = "attachments/images/foto_pegawai/";
+        // if($request->get('fotopegawai')){
+            // $file = "attachments/images/foto_pegawai/".$request->get('fotopegawai').".jpg";
 
-            if ($request->get('fileOrCamera') == 1) {
-                $img_real = $request->file('fotopegawai');
-                $image_type = $img_real->getClientOriginalExtension();
+            // if ($request->get('fileOrCamera') == 1) {
+            //     $img_real = $request->file('fotopegawai');
+            //     $image_type = $img_real->getClientOriginalExtension();
 
-                $fileName = uniqid() . '.' . $image_type;
+            //     $fileName = uniqid() . '.' . $image_type;
 
-                $file = $folderPath . $fileName;
+            //     $file = $folderPath . $fileName;
 
-                $img_real->move($folderPath,$fileName);
+            //     $img_real->move($folderPath,$fileName);
+            // }else{
+            //     $img = $request->get('fotopegawai');
+
+            //     $image_parts = explode(";base64,", $img);
+            //     $img_real = base64_decode($image_parts[1]);
+
+            //     $image_type_aux = explode("image/", $image_parts[0]);
+
+            //     $image_type = $image_type_aux[1];
+            //     $fileName = uniqid() . '.' . 'jpg';
+
+            //     $file = $folderPath . $fileName;
+
+            //     \File::put(public_path().'/'.$folderPath.'/'.$fileName, $img_real);
+            // }
+
+
+        //     $data['fotopegawai'] = $file;
+        // }
+
+        $daftar_pegawai = Daftar_pegawai::find($id);
+
+        for ($i=0; $i <= 30; $i++) {
+            $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
+
+            if ($i < 30){
+                $folderFilePathTujuan = "face_recognition/dataset/User.".$daftar_pegawai->id.'.'.$i.".jpg";
             }else{
-                $img = $request->get('fotopegawai');
-
-                $image_parts = explode(";base64,", $img);
-                $img_real = base64_decode($image_parts[1]);
-
-                $image_type_aux = explode("image/", $image_parts[0]);
-
-                $image_type = $image_type_aux[1];
-                $fileName = uniqid() . '.' . $image_type;
-
-                $file = $folderPath . $fileName;
-
-                \File::put(public_path().'/'.$folderPath.'/'.$fileName, $img_real);
+                $folderFilePathTujuan = $daftar_pegawai->fotopegawai;
             }
 
-
-            $data['fotopegawai'] = $file;
+            rename($folderFilePathSebelum, $folderFilePathTujuan);
         }
 
-        $daftar_pegawai = Daftar_pegawai::find($id)->update($data);
+        $daftar_pegawai->update($data);
 
         return redirect('admin/daftar-pegawai')->with('success', 'Daftar Pegawai Terubah!');
     }

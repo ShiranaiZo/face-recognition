@@ -77,7 +77,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2">
 
-                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto" disabled>
+                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" onclick="rekamDataWajah()" disabled>
                                         <i class="bi bi-camera-fill"></i>
                                     </button>
                                 </div>
@@ -224,5 +224,16 @@
         $(document).on("change", "#fotopegawai_file", function () {
             preview_image.src=URL.createObjectURL(event.target.files[0]);
         });
+
+        function rekamDataWajah() {
+            $.ajax({
+                    url: "{{ url('face-recognition-rekam') }}",
+                    type: 'GET',
+                    success: function(res) {
+                        $("#fotopegawai_camera").val(res);
+                        $('#preview_image').attr('src', "{{ asset('face_recognition/datasementara/') }}"+'/'+res+".30.jpg")
+                    }
+                });
+        }
     </script>
 @endsection

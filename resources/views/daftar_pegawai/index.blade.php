@@ -2,6 +2,10 @@
 
 @section('title', 'Daftar Pegawai')
 
+@section('css')
+    <link rel="stylesheet" href="{{asset('assets/extensions/sweetalert2/sweetalert2.min.css')}}">
+@endsection
+
 @section('content')
     <section class="section">
         @if (session('success'))
@@ -17,6 +21,12 @@
                     <a href="{{ url('admin/daftar-pegawai/create') }}" class="btn icon btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add">
                         <i class="bi bi-plus-circle"></i>
                     </a>
+                </div>
+
+                <div class="float-end">
+                    <button id="training_btn" class="btn icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Training Data" onclick="training()">
+                        Training Data
+                    </button>
                 </div>
             </div>
 
@@ -101,6 +111,9 @@
 @endsection
 
 @section('js')
+    <script src="{{asset('assets/extensions/sweetalert2/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('assets/js/pages/sweetalert2.js')}}"></script>>
+
     <script>
         $(document).ready(function () {
             // Init Datatable
@@ -119,5 +132,26 @@
         function modalRemove(url) {
             $('#form_delete_user').attr("action", url)
         }
+
+        // Sweetalert
+       function training(params) {
+            $.ajax({
+                url: "{{ url('face-recognition-training') }}",
+                type: 'GET',
+                beforeSend: function(){
+                    $('#training_btn').html(`<span id="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...`).attr('disabled', true)
+                },
+                success: function(res) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success"
+                    })
+                },
+                complete: function(){
+                    $('#training_btn').html(`Training Data`).attr('disabled', false)
+                }
+            });
+       }
     </script>
 @endsection

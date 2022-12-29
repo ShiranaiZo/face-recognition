@@ -15,6 +15,9 @@ public/hot
 public_html/storage
 public_html/hot
 public/attachments/*
+public/face_recognition/datasementara/*
+public/face_recognition/dataset/*
+public/face_recognition/training/*
 
 storage/*.key
 .env
