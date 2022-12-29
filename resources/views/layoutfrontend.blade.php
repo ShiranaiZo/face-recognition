@@ -54,7 +54,7 @@
                     <div class="sidebar-menu">
                     </div> --}}
 
-            <div id="main" class='layout-navbar'>
+            <div id="main" class='layout-navbar mx-0'>
                 {{-- <header class='mb-3'>
 
                 </header> --}}

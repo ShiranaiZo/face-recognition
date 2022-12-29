@@ -17,7 +17,7 @@ import os
 import sys
 
 # Path for face image database
-path = sys.argv[1]+'/face_recognition/dataset'
+path = sys.argv[1]+'/face_recognition/dataset/'+ sys.argv[2]
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 detector = cv2.CascadeClassifier(sys.argv[1]+"/face_recognition/haarcascade_frontalface_default.xml")
@@ -48,7 +48,7 @@ faces,ids = getImagesAndLabels(path)
 recognizer.train(faces, np.array(ids))
 
 # Save the model into trainer/trainer.yml
-recognizer.write(sys.argv[1]+'/face_recognition/training/trainer.yml') # recognizer.save() worked on Mac, but not on Pi
+recognizer.write(sys.argv[1]+'/face_recognition/training/'+sys.argv[2]+'/trainer.yml') # recognizer.save() worked on Mac, but not on Pi
 
 # Print the numer of faces trained and end program
 print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids))))

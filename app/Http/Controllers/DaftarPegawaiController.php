@@ -75,11 +75,13 @@ class DaftarPegawaiController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::create($data);
 
+        File::makeDirectory(public_path("face_recognition/dataset/$daftar_pegawai->id"));
+
         for ($i=0; $i <= 30; $i++) {
             $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
 
             if ($i < 30){
-                $folderFilePathTujuan = "face_recognition/dataset/User.".$daftar_pegawai->id.'.'.$i.".jpg";
+                $folderFilePathTujuan = "face_recognition/dataset/".$daftar_pegawai->id."/User.".$daftar_pegawai->id.'.'.$i.".jpg";
             }else{
                 $folderFilePathTujuan = $file;
             }
@@ -87,7 +89,7 @@ class DaftarPegawaiController extends Controller
             rename($folderFilePathSebelum, $folderFilePathTujuan);
         }
 
-        return redirect('daftar-pegawai')->with('success', 'Daftar Pegawai Tersimpan!');
+        return redirect('admin/daftar-pegawai')->with('success', 'Daftar Pegawai Tersimpan!');
     }
 
     /**
@@ -164,7 +166,7 @@ class DaftarPegawaiController extends Controller
             $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
 
             if ($i < 30){
-                $folderFilePathTujuan = "face_recognition/dataset/User.".$daftar_pegawai->id.'.'.$i.".jpg";
+                $folderFilePathTujuan = "face_recognition/dataset/".$daftar_pegawai->id."/User.".$daftar_pegawai->id.'.'.$i.".jpg";
             }else{
                 $folderFilePathTujuan = $daftar_pegawai->fotopegawai;
             }
@@ -188,5 +190,12 @@ class DaftarPegawaiController extends Controller
         $pegawai = Daftar_pegawai::find($id)->delete();
 
         return redirect('admin/daftar-pegawai')->with('success', 'Pegawai Dihapus!');
+    }
+
+    public function scanQRCode($qrcode)
+    {
+        $pegawai = Daftar_pegawai::where('qrcode_p', $qrcode)->first();
+
+        return response()->json($pegawai);
     }
 }

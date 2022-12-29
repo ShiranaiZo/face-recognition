@@ -23,6 +23,9 @@ Route::get('admin/login', function () {
     return view('login');
 })->name('login');
 
+Route::get('face-recognition-scan/{id}', 'FaceRecognitionController@scanWajah');
+Route::get('scan-qrcode/{qrcode}', 'DaftarPegawaiController@scanQRCode');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::get('admin/dashboard', 'DashboardController@index');
 
