@@ -73,16 +73,8 @@
                             </div>
 
                             <div class="col-md-4 form-group">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="fileOrCamera" id="file_foto" style="vertical-align: middle;" checked value="1">
 
-                                    <input type="file" id="fotopegawai_file" class="form-control  @error('fotopegawai') is-invalid @enderror" name="fotopegawai" placeholder="Foto Pegawai" value="{{ old('fotopegawai') }}">
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2">
-
-                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto" disabled>
+                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto">
                                         <i class="bi bi-camera-fill"></i>
                                     </button>
                                 </div>
@@ -93,7 +85,7 @@
                         <div class="col-sm-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-primary me-1 mb-1 submit_create_user" id="submit_create_user" onclick='preventDoubleClick("form_create_user", "submit_create_user")'>Submit</button>
 
-                            <a href="{{ url('daftar-pegawai') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
+                            <a href="{{ url('admin/daftar-pegawai') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
                         </div>
                     </div>
                 </form>

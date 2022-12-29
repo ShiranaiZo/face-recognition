@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Barang')
+@section('title', 'Data Barang')
 
 @section('content')
     <section class="section">
@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    <a href="{{ url('data-barang/create') }}" class="btn icon btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add">
+                    <a href="{{ url('admin/data-barang/create') }}" class="btn icon btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add">
                         <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
@@ -45,11 +45,11 @@
                                 <td>{{ $barang->jenis =="on" ? "Sekali pakai" : "Tidak Sekali Pakai" }}</td>
                                 <td>
                                     <div class="buttons">
-                                        <a href="{{ url('data-barang/'.$barang->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
+                                        <a href="{{ url('admin/data-barang/'.$barang->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
-                                        <button type="button" class="btn icon btn-danger tooltip-class" data-bs-placement="right" title="Remove" data-bs-toggle="modal" data-bs-target="#modal_remove" onclick="modalRemove('{{ url('data-barang/'.$barang->id) }}')">
+                                        <button type="button" class="btn icon btn-danger tooltip-class" data-bs-placement="right" title="Remove" data-bs-toggle="modal" data-bs-target="#modal_remove" onclick="modalRemove('{{ url('admin/data-barang/'.$barang->id) }}')">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>

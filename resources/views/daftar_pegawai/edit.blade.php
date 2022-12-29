@@ -73,11 +73,6 @@
                             </div>
 
                             <div class="col-md-4 form-group">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="fileOrCamera" id="file_foto" style="vertical-align: middle;" checked value="1">
-
-                                    <input type="file" id="fotopegawai_file" class="form-control  @error('fotopegawai') is-invalid @enderror" name="fotopegawai" placeholder="Foto Pegawai" value="{{ old('fotopegawai') }}">
-                                </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2">
