@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    <a href="{{ url('users/create') }}" class="btn icon btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add">
+                    <a href="{{ url('admin/users/create') }}" class="btn icon btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add">
                         <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
@@ -37,11 +37,11 @@
                                 <td>{{ $user->username }}</td>
                                 <td>
                                     <div class="buttons">
-                                        <a href="{{ url('users/'.$user->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
+                                        <a href="{{ url('admin/users/'.$user->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
-                                        <button type="button" class="btn icon btn-danger tooltip-class" data-bs-placement="right" title="Remove" data-bs-toggle="modal" data-bs-target="#modal_remove" onclick="modalRemove('{{ url('users/'.$user->id) }}')">
+                                        <button type="button" class="btn icon btn-danger tooltip-class" data-bs-placement="right" title="Remove" data-bs-toggle="modal" data-bs-target="#modal_remove" onclick="modalRemove('{{ url('admin/users/'.$user->id) }}')">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>

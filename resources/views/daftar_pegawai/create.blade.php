@@ -74,13 +74,9 @@
 
                             <div class="col-md-4 form-group">
 
-                                    <input type="file" id="fotopegawai_file" class="form-control  @error('fotopegawai') is-invalid @enderror" name="fotopegawai" placeholder="Foto Pegawai" value="{{ old('fotopegawai') }}">
-                                </div>
-
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2">
 
-                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto" disabled>
+                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" data-bs-toggle="modal" data-bs-target="#modal_ambil_foto">
                                         <i class="bi bi-camera-fill"></i>
                                     </button>
                                 </div>

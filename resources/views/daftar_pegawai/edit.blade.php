@@ -87,7 +87,7 @@
                         <div class="col-sm-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-primary me-1 mb-1 submit_update_user" id="submit_update_user" onclick='preventDoubleClick("form_update_user", "submit_update_user")'>Submit</button>
 
-                            <a href="{{ url('daftar-pegawai') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
+                            <a href="{{ url('admin/daftar-pegawai') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
                         </div>
                     </div>
                 </form>

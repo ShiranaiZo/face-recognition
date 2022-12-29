@@ -28,7 +28,7 @@
                 <script>
                     $(document).ready(function () {
                     // Init Datatable
-                    $("#_data_barang").DataTable();
+                    $("#table__data_barang").DataTable();
                     });
                 </script>
             <div class="card-body">

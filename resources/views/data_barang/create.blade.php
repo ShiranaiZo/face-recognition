@@ -84,7 +84,7 @@
                         <div class="col-sm-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-primary me-1 mb-1 submit_create_user" id="submit_create_user" onclick='preventDoubleClick("form_create_user", "submit_create_user")'>Submit</button>
 
-                            <a href="{{ url('data-barang') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
+                            <a href="{{ url('admin/data-barang') }}" class="btn btn-light-secondary me-1 mb-1">Back</a>
                         </div>
                     </div>
                 </form>
