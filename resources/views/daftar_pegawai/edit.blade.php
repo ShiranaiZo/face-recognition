@@ -69,15 +69,15 @@
                             <div class="col-md-4 form-group text-center">
                                 <img id="preview_image" src="{{ asset($daftar_pegawai->fotopegawai) }}" alt="Can't load image." style="max-width: 100%; width: auto">
 
-                                <input type="hidden" id="fotopegawai_camera" name="fotopegawai" disabled>
+                                <input type="hidden" id="fotopegawai_camera" name="fotopegawai">
                             </div>
 
                             <div class="col-md-4 form-group">
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2">
+                                    {{-- <input class="form-check-input" type="radio" name="fileOrCamera" id="camera_foto" style="vertical-align: middle;" value="2"> --}}
 
-                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" onclick="rekamDataWajah()" disabled>
+                                    <button type="button" class="btn btn-lg icon btn-info" id="btn_foto_pegawai_camera" onclick="rekamDataWajah()">
                                         <i class="bi bi-camera-fill"></i>
                                     </button>
                                 </div>

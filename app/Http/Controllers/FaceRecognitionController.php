@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\File;
 
+use App\Model\Daftar_pegawai;
+
 class FaceRecognitionController extends Controller
 {
     public function rekamDataWajah()
@@ -27,9 +29,17 @@ class FaceRecognitionController extends Controller
 
     public function trainingData()
     {
-        $path = public_path();
-        $process = new Process("python ".public_path()."/face_recognition/face_training.py ".$path);
-        $process->run();
+        $daftar_pegawai = Daftar_pegawai::all();
+
+        foreach ($daftar_pegawai as $key_pegawai => $pegawai) {
+            if (!File::exists(public_path("face_recognition/training/$pegawai->id"))) {
+                File::makeDirectory(public_path("face_recognition/training/$pegawai->id"));
+            }
+
+            $path = public_path();
+            $process = new Process("python ".public_path()."/face_recognition/face_training.py ".$path." ". $pegawai->id);
+            $process->run();
+        }
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {
@@ -41,5 +51,20 @@ class FaceRecognitionController extends Controller
         File::Delete($all_files);
 
         return response()->json($process->getOutput());
+    }
+
+    public function scanWajah($id)
+    {
+        $path = public_path();
+        $process = new Process("python ".public_path()."/face_recognition/face_recognition.py ".$path." ". $id);
+        $process->setTimeout(3600);
+        $process->run();
+
+        // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return response()->json(filter_var($process->getOutput(), FILTER_VALIDATE_BOOLEAN));
     }
 }
