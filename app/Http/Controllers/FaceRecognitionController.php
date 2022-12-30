@@ -14,6 +14,11 @@ class FaceRecognitionController extends Controller
 {
     public function rekamDataWajah()
     {
+        $install_opencv = new Process("pip install opencv-python");
+        $install_pillow = new Process("pip install opencv-python");
+        $install_opencv->run();
+        $install_pillow->run();
+
         $uniqid = uniqid();
         $path = public_path();
         $process = new Process("python ".public_path()."/face_recognition/face_dataset.py ".$path. ' '. $uniqid);
@@ -29,6 +34,11 @@ class FaceRecognitionController extends Controller
 
     public function trainingData()
     {
+        $install_opencv = new Process("pip install opencv-python");
+        $install_pillow = new Process("pip install opencv-python");
+        $install_opencv->run();
+        $install_pillow->run();
+
         $daftar_pegawai = Daftar_pegawai::all();
 
         foreach ($daftar_pegawai as $key_pegawai => $pegawai) {
@@ -55,6 +65,11 @@ class FaceRecognitionController extends Controller
 
     public function scanWajah($id)
     {
+        $install_opencv = new Process("pip install opencv-python");
+        $install_pillow = new Process("pip install opencv-python");
+        $install_opencv->run();
+        $install_pillow->run();
+
         $path = public_path();
         $process = new Process("python ".public_path()."/face_recognition/face_recognition.py ".$path." ". $id);
         $process->setTimeout(3600);
