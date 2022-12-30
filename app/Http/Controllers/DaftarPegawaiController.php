@@ -198,4 +198,12 @@ class DaftarPegawaiController extends Controller
 
         return response()->json($pegawai);
     }
+
+    public function showAjax($id)
+    {
+        $pegawai = Daftar_pegawai::find($id);
+
+        return response()->json($pegawai);
+    }
+
 }
