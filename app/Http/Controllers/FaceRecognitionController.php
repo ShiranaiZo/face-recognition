@@ -16,12 +16,15 @@ class FaceRecognitionController extends Controller
     {
         $install_opencv = new Process("pip install opencv-python");
         $install_pillow = new Process("pip install opencv-python");
+        $install_opencv->setTimeout(3600);
+        $install_pillow->setTimeout(3600);
         $install_opencv->run();
         $install_pillow->run();
 
         $uniqid = uniqid();
         $path = public_path();
         $process = new Process("python ".public_path()."/face_recognition/face_dataset.py ".$path. ' '. $uniqid);
+        $process->setTimeout(3600);
         $process->run();
 
         // executes after the command finishes
