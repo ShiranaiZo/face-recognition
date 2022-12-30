@@ -22,7 +22,7 @@
 
         <div class="card-content">
             <div class="card-body">
-                <form method="POST" action="{{ url('data-barang/'.$data_barang->id) }}" id="form_update_user">
+                <form method="POST" action="{{ url('admin/data-barang/'.$data_barang->id) }}" id="form_update_user">
                     @method('PATCH')
                     @csrf
 

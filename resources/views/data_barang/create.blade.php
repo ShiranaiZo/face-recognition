@@ -22,7 +22,7 @@
 
         <div class="card-content">
             <div class="card-body">
-                <form method="POST" action="{{ url('data-barang') }}" id="form_create_user">
+                <form method="POST" action="{{ url('admin/data-barang') }}" id="form_create_user">
                     @method('POST')
                     @csrf
 

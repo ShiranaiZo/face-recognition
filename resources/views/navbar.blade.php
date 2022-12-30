@@ -24,10 +24,10 @@
 
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                     <li>
-                        <h6 class="dropdown-header">Hello, {{ \Auth::user()->username }}</h6>
+                        <h6 class="dropdown-header">Hi, {{ \Auth::user()->username }}</h6>
                     </li>
                     <li> <hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{{ url('logout') }}"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ url('admin/logout') }}"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
                 </ul>
             </div>
         </div>

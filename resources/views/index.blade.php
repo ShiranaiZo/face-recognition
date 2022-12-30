@@ -25,14 +25,34 @@
             <div class="card-header">
                 <h4 class="card-title">Stok Barang Minim</h4>
             </div>
+            <div class="card-body">
+                <table class="table" id="data_barang">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($data_barang as $key => $barang)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $barang->kodebarang }}</td>
+                                <td>{{ $barang->namabarang }}</td>
+                                <td>{{ $barang->jumlah }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 <script>
                     $(document).ready(function () {
                     // Init Datatable
-                    $("#table__data_barang").DataTable();
+                    $("#data_barang").DataTable();
                     });
                 </script>
-            <div class="card-body">
-
             </div>
         </div>
         <div class="card">
