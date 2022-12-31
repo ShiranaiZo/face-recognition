@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Riwayat;
+use App\Model\Databarang;
 use Illuminate\Http\Request;
 
 class RiwayatController extends Controller
@@ -36,7 +37,26 @@ class RiwayatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except('_method', '_token');
+
+        foreach ($data['idbarang'] as $key_idbarang => $idbarang) {
+            $riwayat = Riwayat::create([
+                'idpegawai' => $data['idpegawai'],
+                'idbarang' => $idbarang,
+                'kodebarang' => $data['kodebarang'][$key_idbarang],
+                'tujuan' => $data['tujuan'],
+                'jumlah' => $data['jumlah'][$key_idbarang],
+                'tgl_awal' => yyyymmdd_now()
+            ]);
+
+            $barang = Databarang::find($idbarang);
+
+            $barang->update([
+                'jumlah' => $barang->jumlah - $data['jumlah'][$key_idbarang]
+            ]);
+        }
+
+        return redirect('')->with('success', 'Data berhasil di simpan');
     }
 
     /**

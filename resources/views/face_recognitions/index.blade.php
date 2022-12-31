@@ -4,6 +4,14 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/extensions/sweetalert2/sweetalert2.min.css')}}">
+
+    <style>
+        .scroll-vertical{
+            display: block;
+            overflow-y: scroll;
+            height: 190px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -14,6 +22,13 @@
             </div>
         </div>
     </div>
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible show fade">
+            <i class="bi bi-check-circle"></i> {{session('success')}}
+            <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     <section class="section">
         <div class="card align-items-center d-none" id="scan_qrcode">
@@ -40,14 +55,14 @@
         </div>
 
 
-        <div class="card align-items-center d-none" id="tujuan">
+        <div class="card align-items-center d-none" id="wrap_tujuan">
             <div class="card-header">
                 <h4 class="card-title">Halo, <span class="text-nama-pegawai"></span>. Apa yang kamu inginkan?</h4>
             </div>
 
             <div class="card-body">
                 @foreach (config("custom.tujuan") as $key_tujuan => $tujuan)
-                    <button type="button" class="btn btn-outline-secondary" onclick="tujuan('{{$key_tujuan}}')" data-bs-toggle="modal" data-bs-target="#modal_tujuan">{{ ucfirst($tujuan) }}</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="tujuanBTN('{{$key_tujuan}}')" data-bs-toggle="modal" data-bs-target="#modal_tujuan">{{ ucfirst($tujuan) }}</button>
                 @endforeach
 
                 <button type="button" class="btn btn-danger ms-2" onclick="logout()">Logout</button>
@@ -79,35 +94,83 @@
         <div class="modal fade text-left" id="modal_tujuan" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header bg-outline-secondary">
-                        <h5 class="modal-title white judul-tujuan" id="myModalLabel120"></h5>
+                    <div class="modal-header">
+                        <h5 class="modal-title judul-tujuan" id="myModalLabel120"></h5>
 
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                         </button>
                     </div>
 
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-6 border-end">
-                                <video id="scan_qrcode_barang" width="100%"></video>
-                            </div>
-                            <div class="col-6">
-                                <table style="width: 100%" class="table">
-                                    <tr>
-                                        <th class="text-start">Item</th>
-                                        <th class="text-end">Qty</th>
-                                    </tr>
+                    <form action="{{ url('riwayat') }}" method="post">
+                        @csrf
+                        @method('POST')
 
-                                    <tr>
-                                        <td>Sapu</td>
-                                        <td class="text-end">1</td>
-                                    </tr>
-                                </table>
-                                {{-- <video id="scan_qrcode_pegawai" width="100%"></video> --}}
+                        <!-- list Input Hidden -->
+                        <div id="list_input_hidden">
+                            <input type="hidden" name="tujuan" id="tujuan" value="">
+                            <input type="hidden" name="idpegawai" id="idpegawai" value="">
+                        </div>
+                        <!-- /Input Hidden -->
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-6 border-end">
+                                    <video id="scan_qrcode_barang" width="100%"></video>
+                                </div>
+
+                                <div class="col-6" class="table-scroll-vertical">
+                                    <table style="width: 100%" class="table">
+                                        <thead style="display: block">
+                                            <tr>
+                                                <th style="width: 150px">Barang</th>
+                                                <th style="width: 155px" class="text-center">Jumlah</th>
+                                                <th style="width: 40px" class="text-left">#</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="tbody_daftar_barang" class="scroll-vertical">
+                                            {{-- <tr>
+                                                <td>Sapu</td>
+                                                <td class="text-end">
+                                                    <div class="input-group">
+                                                        <button type="button" onclick="countPlusMinus(-1, '#jumlah', 1)" class="btn btn-light input-group-text">
+                                                            <i class="bi bi-dash-lg"></i>
+                                                        </button>
+
+                                                        <input type="text" class="form-control text-center mask" placeholder="0" name="jumlah" value="1" id="jumlah">
+
+                                                        <button type="button" onclick="countPlusMinus(1, '#jumlah', 1)" class="btn btn-light input-group-text">
+                                                            <i class="bi bi-plus-lg"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button id="remove" type="button" class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+                                                </td>
+
+                                                <!-- Input Hidden -->
+                                                <input type="hidden" name="idbarang[]" id="idbarang">
+                                            </tr> --}}
+                                        </tbody>
+                                    </table>
+                                    {{-- <video id="scan_qrcode_pegawai" width="100%"></video> --}}
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Cancel</span>
+                            </button>
+
+                            <button type="submit" class="btn btn-secondary ml-1" data-bs-dismiss="modal">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Submit</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -121,6 +184,28 @@
     <script src="{{asset('assets/extensions/instascan/instascan.min.js')}}"></script>
 
     <script>
+        let config_tujuan = {!! json_encode(config('custom.tujuan')); !!};
+
+        function tujuanBTN(key_tujuan) {
+            $('.judul-tujuan').html(ucfirst(config_tujuan[key_tujuan]))
+
+            $('#tujuan').val(key_tujuan)
+        }
+
+        // Function for increment and decrement button
+        function countPlusMinus(crement, id, limit = null){
+            let value = $(id).inputmask('unmaskedvalue')
+                value = parseInt(value)
+                value = isNaN(value) ? 0 : value
+                value += crement
+
+            if(value <= limit){
+                value = limit
+            }
+
+            $(id).val(value)
+        }
+
         function logout() {
             sessionStorage.removeItem('id');
 
@@ -129,7 +214,9 @@
             }, 1000);
         }
 
-         $(document).ready(function () {
+        $(document).ready(function () {
+             $('.mask').inputmask({"alias": "decimal", "groupSeparator": ",", "digits": 0 , "autoGroup": true, "clearMaskOnLostFocus": false, "allowMinus": false, max: 999999999, min:1 });
+
             let id = JSON.parse(sessionStorage.getItem("id"));
 
             if (id) {
@@ -143,11 +230,14 @@
 
                 $('#scan_qrcode').addClass('d-none')
                 $('#scan_wajah').addClass('d-none')
-                $('#tujuan').removeClass('d-none')
+                $('#wrap_tujuan').removeClass('d-none')
+
+                console.log(id, 'ini harusnya masuk')
+                $('#idpegawai').val(id)
             }else{
                 $('#scan_qrcode').removeClass('d-none')
                 $('#scan_wajah').addClass('d-none')
-                $('#tujuan').addClass('d-none')
+                $('#wrap_tujuan').addClass('d-none')
             }
 		});
 
@@ -225,7 +315,7 @@
 
                         $('#scan_qrcode').addClass('d-none')
                         $('#scan_wajah').removeClass('d-none')
-                        $('#tujuan').addClass('d-none')
+                        $('#wrap_tujuan').addClass('d-none')
                     }
                 });
             });
@@ -248,39 +338,90 @@
 
             $('#modal_tujuan').on('hidden.bs.modal', function (e) {
                 scanner_barang.stop();
+                $('#tbody_daftar_barang').html('')
             })
 
             scanner_barang.addListener('scan', function (content) {
+                let tujuan = $('#tujuan').val()
 
-                // $.ajax({
-                //     url: "{{ url('scan-qrcode') }}/"+content,
-                //     type: 'GET',
-                //     beforeSend: function(){
-                //         $('#modal_tujuan .model-content').html(`<span id="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                //             Loading...`).attr('disabled', true)
-                //     },
-                //     success: function(res) {
-                //         $('#scan').data('id', res.id)
+                $.ajax({
+                    url: "{{ url('scan-qrcode-barang') }}/"+content+'/'+tujuan,
+                    type: 'GET',
+                    success: function(res) {
+                        if (tujuan == 'PM' || tujuan == 'PN') {
+                            let html = ""
+                            let input_hidden = ""
+                            let data = res.data
 
-                //         if (jQuery.isEmptyObject(res)){
-                //             Swal.fire({
-                //                 icon: "error",
-                //                 title: "QR Code Anda Bukan Pegawai."
-                //             })
-                //         }else{
-                //             Swal.fire({
-                //                 icon: "success",
-                //                 title: "Scan QR Code Berhasil."
-                //             })
-                //         }
+                            if (res.pesan == ''){
+                                if ($("tr").hasClass(`item-${data.id}`)) {
+                                    let jumlah = $(`#jumlah_${data.id}`).val()
+                                        jumlah = parseInt(jumlah)
+                                        jumlah += 1
 
-                //         $('#scan_qrcode').addClass('d-none')
-                //         $('#scan_wajah').removeClass('d-none')
-                //         $('#tujuan').addClass('d-none')
-                //     }
-                // });
+                                    $(`#jumlah_${data.id}`).val(jumlah)
+                                }else{
+                                    html += `
+                                                <tr class="item-${data.id}">
+                                                    <td style="width:150px">
+                                                        <h6>${data.namabarang}</h6>
+                                                        <p>${data.kodebarang}</p>
+                                                    </td>
+                                                    <td class="text-end" style="width:150px">
+                                                        <div class="input-group">
+                                                            <button type="button" onclick="countPlusMinus(-1, '#jumlah_${data.id}', 1)" class="btn btn-light input-group-text">
+                                                                <i class="bi bi-dash-lg"></i>
+                                                            </button>
+
+                                                            <input type="text" class="form-control text-center mask" placeholder="0" name="jumlah[${data.id}]" value="1" id="jumlah_${data.id}">
+
+                                                            <button type="button" onclick="countPlusMinus(1, '#jumlah_${data.id}', 1)" class="btn btn-light input-group-text">
+                                                                <i class="bi bi-plus-lg"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:40px">
+                                                        <button onclick="removeElement('.item-${data.id}')" type="button" class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+                                                    </td>
+                                                </tr>
+                                            `
+
+                                    input_hidden += `
+                                                        <div class="item-${data.id}">
+                                                            <input type="hidden" value="${data.id}" name="idbarang[${data.id}]">
+                                                            <input type="hidden" value="${data.kodebarang}" name="kodebarang[${data.id}]">
+                                                        </div>
+                                                    `
+                                }
+                            }else{
+                                html += `
+                                            <tr class="alert-barang">
+                                                <td colspan="3">
+                                                    <div class="alert alert-danger alert-dismissible show fade">
+                                                        <i class="bi bi-file-excel"></i> ${res.pesan}
+
+                                                        <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close" onclick="removeElement('.alert-barang')"></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `
+
+                                setTimeout(function() {
+                                    $('.alert-barang').remove();
+                                }, 5000);
+                            }
+
+                            $('#tbody_daftar_barang').prepend(html)
+                            $('#list_input_hidden').append(input_hidden)
+                        }
+                    }
+                });
             });
         // Scan QR Code Barang
+
+        function removeElement(element) {
+            $(element).remove()
+        }
     </script>
 
 @endsection
