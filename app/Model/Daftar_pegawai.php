@@ -14,4 +14,8 @@ class Daftar_pegawai extends Model
     ];
 
     protected $table = 'daftar_pegawai';
+
+    public function riwayat(){
+        return $this->hasMany('\App\Model\Riwayat', 'idbarang', 'id');
+    }
 }

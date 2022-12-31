@@ -102,14 +102,19 @@
                         </button>
                     </div>
 
-                    <form action="{{ url('riwayat') }}" method="post">
+                    <form action="{{ url('riwayat') }}" method="post" id="form_tujuan">
                         @csrf
-                        @method('POST')
+
+                        <input type="hidden" name="_method" id="method_form_tujuan">
 
                         <!-- list Input Hidden -->
                         <div id="list_input_hidden">
                             <input type="hidden" name="tujuan" id="tujuan" value="">
                             <input type="hidden" name="idpegawai" id="idpegawai" value="">
+
+                            <div id="input_hidden_per_item">
+
+                            </div>
                         </div>
                         <!-- /Input Hidden -->
 
@@ -190,6 +195,14 @@
             $('.judul-tujuan').html(ucfirst(config_tujuan[key_tujuan]))
 
             $('#tujuan').val(key_tujuan)
+
+            if (key_tujuan == 'PM' || key_tujuan == 'PN') {
+                $('#form_tujuan').attr('action', "{{ url('riwayat') }}")
+                $('#method_form_tujuan').val('POST')
+            }else{
+                $('#form_tujuan').attr('action', "{{ url('riwayat/update') }}")
+                $('#method_form_tujuan').val('PATCH')
+            }
         }
 
         // Function for increment and decrement button
@@ -339,20 +352,23 @@
             $('#modal_tujuan').on('hidden.bs.modal', function (e) {
                 scanner_barang.stop();
                 $('#tbody_daftar_barang').html('')
+                $('#input_hidden_per_item').html('')
             })
 
             scanner_barang.addListener('scan', function (content) {
                 let tujuan = $('#tujuan').val()
+                let idpegawai = $('#idpegawai').val()
 
                 $.ajax({
-                    url: "{{ url('scan-qrcode-barang') }}/"+content+'/'+tujuan,
+                    url: "{{ url('scan-qrcode-barang') }}/"+content+'/'+tujuan+'/'+idpegawai,
                     type: 'GET',
                     success: function(res) {
-                        if (tujuan == 'PM' || tujuan == 'PN') {
-                            let html = ""
-                            let input_hidden = ""
-                            let data = res.data
+                        let html = ""
+                        let input_hidden = ""
+                        let data = res.data
 
+                        // Jika Tujuan Pengambilan atau Penggunaan
+                        if (tujuan == 'PM' || tujuan == 'PN') {
                             if (res.pesan == ''){
                                 if ($("tr").hasClass(`item-${data.id}`)) {
                                     let jumlah = $(`#jumlah_${data.id}`).val()
@@ -367,7 +383,7 @@
                                                         <h6>${data.namabarang}</h6>
                                                         <p>${data.kodebarang}</p>
                                                     </td>
-                                                    <td class="text-end" style="width:150px">
+                                                    <td class="text-end" style="width:155px">
                                                         <div class="input-group">
                                                             <button type="button" onclick="countPlusMinus(-1, '#jumlah_${data.id}', 1)" class="btn btn-light input-group-text">
                                                                 <i class="bi bi-dash-lg"></i>
@@ -410,10 +426,80 @@
                                     $('.alert-barang').remove();
                                 }, 5000);
                             }
+                        }else{
+                            if (res.pesan == ''){
+                                $.each(res.riwayat, function(key_riwayat, riwayat){
+                                    if ($("tr").hasClass(`item-${riwayat.id}`)) {
+                                        html = `
+                                                <tr class="alert-barang">
+                                                    <td colspan="3">
+                                                        <div class="alert alert-danger alert-dismissible show fade">
+                                                            <i class="bi bi-file-excel"></i> Barang sudah ada di tabel ini
 
-                            $('#tbody_daftar_barang').prepend(html)
-                            $('#list_input_hidden').append(input_hidden)
+                                                            <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close" onclick="removeElement('.alert-barang')"></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            `
+
+                                        setTimeout(function() {
+                                            $('.alert-barang').remove();
+                                        }, 5000);
+                                    }else{
+                                        html += `
+                                                    <tr class="item-${riwayat.id}">
+                                                        <td style="width:150px">
+                                                            <h6>${riwayat?.barang?.namabarang}</h6>
+                                                            <p>${riwayat.kodebarang}</p>
+                                                        </td>
+                                                        <td class="text-end" style="width:155px">
+                                                            <div class="input-group">
+                                                                <button type="button" class="btn btn-light input-group-text" disabled>
+                                                                    <i class="bi bi-dash-lg"></i>
+                                                                </button>
+
+                                                                <input type="text" class="form-control text-center mask" placeholder="0" name="jumlah[${riwayat.id}]" value="${riwayat.jumlah}" id="jumlah_${riwayat.id}" readonly>
+
+                                                                <button type="button" class="btn btn-light input-group-text" disabled>
+                                                                    <i class="bi bi-plus-lg"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width:40px">
+                                                            <input type="checkbox" class="form-check-input form-check-primary" checked name="checkbox_riwayat[${riwayat.id}]" id="check_${riwayat.id}">
+                                                        </td>
+                                                    </tr>
+                                                `
+
+                                        input_hidden += `
+                                                            <div class="item-${riwayat.id}">
+                                                                <input type="hidden" value="${data.id}" name="idbarang[${riwayat.id}]">
+                                                                <input type="hidden" value="${riwayat.id}" name="idriwayat[${riwayat.id}]">
+                                                            </div>
+                                                        `
+                                    }
+                                });
+                            }else{
+                                html += `
+                                            <tr class="alert-barang">
+                                                <td colspan="3">
+                                                    <div class="alert alert-danger alert-dismissible show fade">
+                                                        <i class="bi bi-file-excel"></i> ${res.pesan}
+
+                                                        <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close" onclick="removeElement('.alert-barang')"></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `
+
+                                setTimeout(function() {
+                                    $('.alert-barang').remove();
+                                }, 5000);
+                            }
                         }
+
+                        $('#tbody_daftar_barang').prepend(html)
+                        $('#input_hidden_per_item').append(input_hidden)
                     }
                 });
             });

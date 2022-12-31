@@ -88,9 +88,23 @@ class RiwayatController extends Controller
      * @param  \App\Model\Riwayat  $riwayat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Riwayat $riwayat)
+    public function update(Request $request)
     {
-        //
+        $data = $request->except('_method', '_token');
+
+        foreach ($data['checkbox_riwayat'] as $key_checkbox_riwayat => $checkbox_riwayat) {
+            $riwayat = Riwayat::find($data['idriwayat'][$key_checkbox_riwayat])->update([
+                'tgl_akhir' => yyyymmdd_now()
+            ]);
+
+            $barang = Databarang::find($data['idbarang'][$key_checkbox_riwayat]);
+
+            $barang->update([
+                'jumlah' => $barang->jumlah + $data['jumlah'][$key_checkbox_riwayat]
+            ]);
+        }
+
+        return redirect('')->with('success', 'Pengembalian barang berhasil');
     }
 
     /**

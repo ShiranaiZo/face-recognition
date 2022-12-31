@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Databarang;
+use App\Model\Riwayat;
 use Illuminate\Http\Request;
 
 class DatabarangController extends Controller
@@ -95,9 +96,10 @@ class DatabarangController extends Controller
         return redirect('admin/data-barang')->with('success', 'Barang Dihapus!');
     }
 
-    public function scanQRCode($qrcode, $tujuan)
+    public function scanQRCode($qrcode, $tujuan, $idpegawai)
     {
         $results['pesan'] = '';
+        $results['riwayat'] = array();
         $results['data'] = Databarang::where('qrcode_b', $qrcode)->first();
 
         if ($tujuan == 'PN') {
@@ -116,10 +118,17 @@ class DatabarangController extends Controller
             }else{
                 $results['pesan'] = "Barang tidak di temukan";
             }
+        }else {
+            if ($results['data']){
+                $results['riwayat'] = Riwayat::where('idpegawai', $idpegawai)->where('idbarang', $results['data']->id)->whereNull('tgl_akhir')->where('tujuan', "PM")->with('barang', 'pegawai')->get();
+
+                if (count($results['riwayat']) <= 0) {
+                    $results['pesan'] = "Anda belum meminjam barang ini";
+                }
+            }else{
+                $results['pesan'] = "Barang tidak di temukan";
+            }
         }
-        // else {
-        //     $results = Databarang::where('qrcode_p', $qrcode)->get();
-        // }
 
         return response()->json($results);
     }
