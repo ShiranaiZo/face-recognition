@@ -94,4 +94,33 @@ class DatabarangController extends Controller
 
         return redirect('admin/data-barang')->with('success', 'Barang Dihapus!');
     }
+
+    public function scanQRCode($qrcode, $tujuan)
+    {
+        $results['pesan'] = '';
+        $results['data'] = Databarang::where('qrcode_b', $qrcode)->first();
+
+        if ($tujuan == 'PN') {
+            if ($results['data']){
+                if ($results['data']->jenis == null) {
+                    $results['pesan'] = "Barang tidak sekali pakai, silahkan ke peminjaman";
+                }
+            }else{
+                $results['pesan'] = "Barang tidak di temukan";
+            }
+        }elseif ($tujuan == 'PM'){
+            if ($results['data']){
+                if ($results['data']->jenis == 'on') {
+                    $results['pesan'] = "Barang sekali pakai, silahkan ke penggunaan";
+                }
+            }else{
+                $results['pesan'] = "Barang tidak di temukan";
+            }
+        }
+        // else {
+        //     $results = Databarang::where('qrcode_p', $qrcode)->get();
+        // }
+
+        return response()->json($results);
+    }
 }

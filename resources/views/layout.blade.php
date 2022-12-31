@@ -84,7 +84,9 @@
 
         <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
+        <script src="{{asset("assets/extensions/inputmask/jquery.inputmask.min.js")}}"></script>
         <script src="{{asset("assets/extensions/datatable/datatables.min.js")}}"></script>
+        <script src="{{asset("assets/extensions/helpers/helpers.js")}}"></script>
 
         <script src="{{asset('assets/js/bootstrap.js')}}"></script>
         <script src="{{asset('assets/js/app.js')}}"></script>

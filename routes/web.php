@@ -25,6 +25,9 @@ Route::get('admin/login', function () {
 
 Route::get('face-recognition-scan/{id}', 'FaceRecognitionController@scanWajah');
 Route::get('scan-qrcode/{qrcode}', 'DaftarPegawaiController@scanQRCode');
+Route::get('daftar-pegawai/{id}', 'DaftarPegawaiController@showAjax');
+Route::get('scan-qrcode-barang/{qrcode}/{tujuan}', 'DataBarangController@scanQRCode');
+Route::resource('riwayat', 'RiwayatController');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('admin/dashboard', 'DashboardController@index');
@@ -35,7 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::resource('admin/users', 'UserController');
 			Route::resource('admin/daftar-pegawai', 'DaftarPegawaiController');
 			Route::resource('admin/data-barang', 'DatabarangController');
-			Route::resource('admin/riwayat', 'RiwayatController');
+			Route::get('admin/riwayat', 'RiwayatController@index');
 
             // Face Recognition
             Route::get('face-recognition-rekam', 'FaceRecognitionController@rekamDataWajah');
