@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Model\Riwayat;
 use App\Model\Databarang;
 use Illuminate\Http\Request;
+use App\Exports\RiwayatExport;
+
+use Excel;
 use PDF;
 
 class RiwayatController extends Controller
@@ -29,6 +32,8 @@ class RiwayatController extends Controller
                   ->setPaper('legal', 'landscape');
 
             return $pdf->stream('riwayat'.($filter ? '_'.$filter : '').'_'.ddmmyyyy_now().'.pdf');
+        }else if($request->path() == 'admin/riwayat/cetak-excel'.($filter ? '/'.$filter : '')){
+            return Excel::download(new RiwayatExport($results), 'riwayat'.($filter ? '_'.$filter : '').'_'.ddmmyyyy_now().'.xlsx');
         }else{
             return view('riwayats.index', $results);
         }

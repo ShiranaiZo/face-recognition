@@ -24,9 +24,9 @@
                                 <i class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF
                             </a>
 
-                            <span class="dropdown-item">
+                            <a href="{{ url('admin/riwayat/cetak-excel').(request()->filter ? '/'.request()->filter : '') }}" class="dropdown-item" target="_blank">
                                 <i class="bi bi-file-earmark-excel-fill"></i> Cetak Excel
-                            </span>
+                            </a>
                         </div>
                     </div>
                 </div>

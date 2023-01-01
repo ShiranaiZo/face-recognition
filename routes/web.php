@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::resource('admin/daftar-pegawai', 'DaftarPegawaiController');
 			Route::resource('admin/data-barang', 'DatabarangController');
 			Route::get('admin/riwayat/cetak-pdf/{filter?}', 'RiwayatController@index');
+			Route::get('admin/riwayat/cetak-excel/{filter?}', 'RiwayatController@index');
 			Route::get('admin/riwayat/{filter?}', 'RiwayatController@index');
 
             // Face Recognition
