@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Riwayat;
 use App\Model\Databarang;
 use Illuminate\Http\Request;
+use PDF;
 
 class RiwayatController extends Controller
 {
@@ -13,10 +14,24 @@ class RiwayatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $filter = null)
     {
-        $results['riwayats'] = Riwayat::latest()->get();
-        return view('riwayats.index', $results);
+        $results['riwayats'] = Riwayat::latest();
+
+        if ($filter) {
+            $results['riwayats'] = $results['riwayats']->where('tujuan', $filter)->get();
+        }else{
+            $results['riwayats'] = $results['riwayats']->get();
+        }
+        // dd($request->path(), 'admin/riwayat/cetak-pdf'.($filter ? '/'.$filter : ''));
+        if ($request->path() == 'admin/riwayat/cetak-pdf'.($filter ? '/'.$filter : '')) {
+            $pdf = PDF::loadview('riwayats.cetakpdf', $results)
+                  ->setPaper('legal', 'landscape');
+
+            return $pdf->stream('riwayat'.($filter ? '_'.$filter : '').'_'.ddmmyyyy_now().'.pdf');
+        }else{
+            return view('riwayats.index', $results);
+        }
     }
 
     /**

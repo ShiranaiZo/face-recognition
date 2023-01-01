@@ -12,6 +12,43 @@
         @endif
 
         <div class="card">
+            <div class="card-header">
+                <div class="float-start">
+                    <div class="btn-group dropdown dropdown-icon-wrapper me-1 mb-1">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-printer-fill dropdown-icon"></i> Cetak
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a href="{{ url('admin/riwayat/cetak-pdf').(request()->filter ? '/'.request()->filter : '') }}" class="dropdown-item" target="_blank">
+                                <i class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF
+                            </a>
+
+                            <span class="dropdown-item">
+                                <i class="bi bi-file-earmark-excel-fill"></i> Cetak Excel
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="float-end">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+
+                        <select class="form-select" id="inputGroupSelect01" onchange="filter(this.value)">
+                            <option {{request()->filter ? '' : 'selected'}} value="">Semua</option>
+
+                            @foreach (config('custom.tujuan') as $key_tujuan => $tujuan)
+                                @if ($key_tujuan == 'K')
+                                    @continue
+                                @endif
+
+                                <option {{request()->filter == $key_tujuan ? 'selected' : ''}} value="{{$key_tujuan}}">{{ucfirst($tujuan)}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
 
             <div class="card-body">
                 <table class="table" id="table_users">
@@ -35,7 +72,7 @@
                                     <h6>{{ @$riwayat->barang->namabarang }}</h6>
                                     <p>{{ @$riwayat->barang->kodebarang }}<p>
                                 </td>
-                                <td>{{ $riwayat->tujuan }}</td>
+                                <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
                                 <td>{{ $riwayat->tgl_awal }}</td>
                                 <td>{{ $riwayat->tgl_akhir }}</td>
 
@@ -67,6 +104,16 @@
         // Modal Remove
         function modalRemove(url) {
             $('#form_delete_user').attr("action", url)
+        }
+
+        // Trigger Ketika filter
+        function filter(filter) {
+            if(filter == ''){
+                window.location.href = "{{url('admin/riwayat')}}";
+            }
+            else{
+                window.location.href = "{{url('admin/riwayat')}}/"+filter;
+            }
         }
     </script>
 @endsection
