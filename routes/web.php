@@ -26,7 +26,8 @@ Route::get('admin/login', function () {
 Route::get('face-recognition-scan/{id}', 'FaceRecognitionController@scanWajah');
 Route::get('scan-qrcode/{qrcode}', 'DaftarPegawaiController@scanQRCode');
 Route::get('daftar-pegawai/{id}', 'DaftarPegawaiController@showAjax');
-Route::get('scan-qrcode-barang/{qrcode}/{tujuan}', 'DataBarangController@scanQRCode');
+Route::get('scan-qrcode-barang/{qrcode}/{tujuan}/{idpegawai}', 'DataBarangController@scanQRCode');
+Route::patch('riwayat/update', 'RiwayatController@update');
 Route::resource('riwayat', 'RiwayatController');
 
 Route::group(['middleware' => ['auth']], function() {

@@ -13,4 +13,8 @@ class Databarang extends Model
     ];
 
     protected $table = '_data_barang';
+
+    public function riwayat(){
+        return $this->hasMany('\App\Model\Riwayat', 'idbarang', 'id');
+    }
 }
