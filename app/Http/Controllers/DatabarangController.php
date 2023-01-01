@@ -38,6 +38,12 @@ class DatabarangController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kodebarang'=>'required',
+            'namabarang'=>'required',
+            'jumlah'=>'required',
+        ]);
+
         $data = $request->except('_method', '_token');
         $data_barang = Databarang::create($data);
 
@@ -77,6 +83,12 @@ class DatabarangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'kodebarang'=>'required',
+            'namabarang'=>'required',
+            'jumlah'=>'required',
+        ]);
+
         $data = $request->except('_method', '_token');
         $data_barang = Databarang::find($id)->update($data);
 

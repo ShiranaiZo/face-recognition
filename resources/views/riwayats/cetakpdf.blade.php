@@ -84,20 +84,26 @@
             </thead>
 
             <tbody>
-                @foreach ($riwayats as $key => $riwayat)
-                    <tr>
-                        <td style="text-align: center">{{ $loop->iteration }}</td>
-                        <td>{{ @$riwayat->pegawai->namapegawai }}</td>
-                        <td>
-                            <h3>{{ @$riwayat->barang->namabarang }}</h3>
-                            <p>{{ @$riwayat->barang->kodebarang }}<p>
-                        </td>
-                        <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
-                        <td>{{ $riwayat->tgl_awal }}</td>
-                        <td>{{ $riwayat->tgl_akhir }}</td>
+                @if (!$riwayats->isEmpty())
+                    @foreach ($riwayats as $key => $riwayat)
+                        <tr>
+                            <td style="text-align: center">{{ $loop->iteration }}</td>
+                            <td>{{ @$riwayat->pegawai->namapegawai }}</td>
+                            <td>
+                                <h3>{{ @$riwayat->barang->namabarang }}</h3>
+                                <p>{{ @$riwayat->barang->kodebarang }}<p>
+                            </td>
+                            <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
+                            <td>{{ $riwayat->tgl_awal }}</td>
+                            <td>{{ $riwayat->tgl_akhir }}</td>
 
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="6" style="text-align: center">No data available in table</td>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
 
