@@ -120,7 +120,7 @@ class DatabarangController extends Controller
                     $results['pesan'] = "Barang tidak sekali pakai, silahkan ke peminjaman";
                 }
             }else{
-                $results['pesan'] = "Barang tidak di temukan";
+                $results['pesan'] = "Barang tidak di temukan, pastikan QR Code anda benar";
             }
         }elseif ($tujuan == 'PM'){
             if ($results['data']){
@@ -128,7 +128,7 @@ class DatabarangController extends Controller
                     $results['pesan'] = "Barang sekali pakai, silahkan ke penggunaan";
                 }
             }else{
-                $results['pesan'] = "Barang tidak di temukan";
+                $results['pesan'] = "Barang tidak di temukan, pastikan QR Code anda benar";
             }
         }else {
             if ($results['data']){
@@ -138,7 +138,7 @@ class DatabarangController extends Controller
                     $results['pesan'] = "Anda belum meminjam barang ini";
                 }
             }else{
-                $results['pesan'] = "Barang tidak di temukan";
+                $results['pesan'] = "Barang tidak di temukan, pastikan QR Code anda benar";
             }
         }
 

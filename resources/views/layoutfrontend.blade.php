@@ -86,9 +86,11 @@
                 </div>
             </div>
 
-        <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
-        <script src="{{asset('assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
-        <script src="{{asset("assets/extensions/inputmask/jquery.inputmask.min.js")}}"></script>
+
+            <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
+            <script src="{{asset('assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
+            <script src="{{asset("assets/extensions/inputmask/jquery.inputmask.min.js")}}"></script>
+        {{-- <script src="{{asset("assets/extensions/inputmask/jquery.inputmask.min.js")}}"></script> --}}
         <script src="{{asset("assets/extensions/datatable/datatables.min.js")}}"></script>
         <script src="{{asset("assets/extensions/helpers/helpers.js")}}"></script>
 
@@ -100,7 +102,7 @@
 
         <script>
             // Set time out session success
-            @if(session('success') || $errors->any())
+            @if(session('success') || session('error'))
                 setTimeout(() => {
                     $('.btn-close-session').trigger('click')
                 }, 5000);

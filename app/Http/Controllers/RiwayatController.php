@@ -59,24 +59,29 @@ class RiwayatController extends Controller
     {
         $data = $request->except('_method', '_token');
 
-        foreach ($data['idbarang'] as $key_idbarang => $idbarang) {
-            $riwayat = Riwayat::create([
-                'idpegawai' => $data['idpegawai'],
-                'idbarang' => $idbarang,
-                'kodebarang' => $data['kodebarang'][$key_idbarang],
-                'tujuan' => $data['tujuan'],
-                'jumlah' => $data['jumlah'][$key_idbarang],
-                'tgl_awal' => yyyymmdd_now()
-            ]);
+        if ($request->get('idbarang')) {
+            foreach ($data['idbarang'] as $key_idbarang => $idbarang) {
+                $riwayat = Riwayat::create([
+                    'idpegawai' => $data['idpegawai'],
+                    'idbarang' => $idbarang,
+                    'kodebarang' => $data['kodebarang'][$key_idbarang],
+                    'tujuan' => $data['tujuan'],
+                    'jumlah' => $data['jumlah'][$key_idbarang],
+                    'tgl_awal' => yyyymmdd_now()
+                ]);
 
-            $barang = Databarang::find($idbarang);
+                $barang = Databarang::find($idbarang);
 
-            $barang->update([
-                'jumlah' => $barang->jumlah - $data['jumlah'][$key_idbarang]
-            ]);
+                $barang->update([
+                    'jumlah' => $barang->jumlah - $data['jumlah'][$key_idbarang]
+                ]);
+            }
+
+            return redirect('')->with('success', ucfirst(config('custom.tujuan.'.$data['tujuan'])).' berhasil');
+        }else{
+            return redirect('')->with('error',  ucfirst(config('custom.tujuan.'.$data['tujuan'])).' tidak berhasil');
         }
 
-        return redirect('')->with('success', 'Data berhasil di simpan');
     }
 
     /**
@@ -112,19 +117,24 @@ class RiwayatController extends Controller
     {
         $data = $request->except('_method', '_token');
 
-        foreach ($data['checkbox_riwayat'] as $key_checkbox_riwayat => $checkbox_riwayat) {
-            $riwayat = Riwayat::find($data['idriwayat'][$key_checkbox_riwayat])->update([
-                'tgl_akhir' => yyyymmdd_now()
-            ]);
+        if ($request->get('checkbox_riwayat')) {
+            foreach ($request->get('checkbox_riwayat') as $key_checkbox_riwayat => $checkbox_riwayat) {
+                $riwayat = Riwayat::find($data['idriwayat'][$key_checkbox_riwayat])->update([
+                    'tgl_akhir' => yyyymmdd_now()
+                ]);
 
-            $barang = Databarang::find($data['idbarang'][$key_checkbox_riwayat]);
+                $barang = Databarang::find($data['idbarang'][$key_checkbox_riwayat]);
 
-            $barang->update([
-                'jumlah' => $barang->jumlah + $data['jumlah'][$key_checkbox_riwayat]
-            ]);
+                $barang->update([
+                    'jumlah' => $barang->jumlah + $data['jumlah'][$key_checkbox_riwayat]
+                ]);
+            }
+
+            return redirect('')->with('success', 'Pengembalian barang berhasil');
+        }else{
+            return redirect('')->with('error', 'Tidak ada barang yang di kembalikan');
         }
 
-        return redirect('')->with('success', 'Pengembalian barang berhasil');
     }
 
     /**
