@@ -18,7 +18,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Barang</th>
+                            <th>Nama Pegawai</th>
+                            <th>Nama Barang</th>
                             <th>Tujuan</th>
                             <th>Tanggal Awal</th>
                             <th>Tanggal Akhir</th>
@@ -29,7 +30,11 @@
                         @foreach ($riwayats as $key => $riwayat)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $riwayat->kodebarang }}</td>
+                                <td>{{ @$riwayat->pegawai->namapegawai }}</td>
+                                <td>
+                                    <h6>{{ @$riwayat->barang->namabarang }}</h6>
+                                    <p>{{ @$riwayat->barang->kodebarang }}<p>
+                                </td>
                                 <td>{{ $riwayat->tujuan }}</td>
                                 <td>{{ $riwayat->tgl_awal }}</td>
                                 <td>{{ $riwayat->tgl_akhir }}</td>
