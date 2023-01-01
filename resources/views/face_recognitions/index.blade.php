@@ -265,13 +265,11 @@
                             Swal.fire({
                                 icon: "success",
                                 title: "Scan Berhasil."
-                            })
+                            }).then(function() {
+                                sessionStorage.setItem("id", id);
 
-                            sessionStorage.setItem("id", id);
-
-                            setTimeout(function() {
                                 window.location.href = "{{url('')}}";
-                            }, 1000);
+                            });
                         }else{
                             Swal.fire({
                                 icon: "error",
@@ -324,11 +322,11 @@
                                 icon: "success",
                                 title: "Scan QR Code Berhasil."
                             })
-                        }
 
-                        $('#scan_qrcode').addClass('d-none')
-                        $('#scan_wajah').removeClass('d-none')
-                        $('#wrap_tujuan').addClass('d-none')
+                            $('#scan_qrcode').addClass('d-none')
+                            $('#scan_wajah').removeClass('d-none')
+                            $('#wrap_tujuan').addClass('d-none')
+                        }
                     }
                 });
             });
