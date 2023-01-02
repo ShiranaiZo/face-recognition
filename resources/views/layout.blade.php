@@ -27,7 +27,7 @@
                     <div class="sidebar-brand-icon mt-3 ms-5">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="logo">
-                                <a href="index.html"><img width="50%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset=""></a>
+                                <a href=""><img width="50%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset=""></a>
                             </div>
 
                             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">

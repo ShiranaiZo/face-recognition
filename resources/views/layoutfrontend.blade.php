@@ -24,7 +24,7 @@
         <nav class="navbar navbar-light mb-4" style="background-color: white;">
             <div class="container d-block">
                 <a class="navbar-brand ms-4" href="{{ url(\Request::url()) }}">
-                    <img width="15%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset="">
+                    <img width="10%" src="{{asset('assets/images/logo/logo.jpg')}}" alt="Logo" srcset="">
                 </a>
             </div>
         </nav>
