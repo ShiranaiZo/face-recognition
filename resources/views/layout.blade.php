@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="float-end">
-                                <p>Modified with <span class="text-info"><i class="fas fa-hand-peace"></i></span> by <a href="https://www.instagram.com/yuuttt_/" target="_blank">Yuta</a></p>
+                                <p>Modified with <span class="text-info"></span>@kptikbmnsurabaya 2022</p>
                             </div>
                         </div>
                     </footer>
