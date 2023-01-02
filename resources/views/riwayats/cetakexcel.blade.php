@@ -29,8 +29,8 @@
                         <p style="margin: 0 ">{{ @$riwayat->barang->kodebarang }}<p>
                     </td>
                     <td style="width: 100px">{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
-                    <td style="width: 100px">{{ $riwayat->tgl_awal }}</td>
-                    <td style="width: 100px">{{ $riwayat->tgl_akhir }}</td>
+                    <td>{{ ddmmyyyy($riwayat->tgl_awal) }}</td>
+                    <td>{{ ddmmyyyy($riwayat->tgl_akhir) }}</td>
                 </tr>
             @endforeach
         @else

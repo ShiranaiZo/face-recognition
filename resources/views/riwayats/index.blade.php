@@ -73,8 +73,8 @@
                                     <p>{{ @$riwayat->barang->kodebarang }}<p>
                                 </td>
                                 <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
-                                <td>{{ $riwayat->tgl_awal }}</td>
-                                <td>{{ $riwayat->tgl_akhir }}</td>
+                                <td>{{ ddmmyyyy($riwayat->tgl_awal) }}</td>
+                                <td>{{ ddmmyyyy($riwayat->tgl_akhir) }}</td>
 
                             </tr>
                         @endforeach
