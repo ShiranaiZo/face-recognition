@@ -82,6 +82,7 @@
                             <th>No</th>
                             <th>Nama Pegawai</th>
                             <th>Nama Barang</th>
+                            <th>Jumlah</th>
                             <th>Tujuan</th>
                             <th>Tanggal Awal</th>
                             <th>Tanggal Akhir</th>
@@ -97,6 +98,7 @@
                                     <h6>{{ @$keluar->barang->namabarang }}</h6>
                                     <p>{{ @$keluar->barang->kodebarang }}<p>
                                 </td>
+                                <td>{{ $keluar->jumlah }}</td>
                                 <td>{{ ucfirst(config('custom.tujuan.'.$keluar->tujuan)) }}</td>
                                 <td>{{ ddmmyyyy($keluar->tgl_awal) }}</td>
                                 <td>{{ ddmmyyyy($keluar->tgl_akhir) }}</td>
@@ -126,6 +128,7 @@
                             <th>No</th>
                             <th>Nama Pegawai</th>
                             <th>Nama Barang</th>
+                            <th>Jumlah</th>
                             <th>Tujuan</th>
                             <th>Tanggal Awal</th>
                             <th>Tanggal Akhir</th>
@@ -141,6 +144,7 @@
                                     <h6>{{ @$pinjam->barang->namabarang }}</h6>
                                     <p>{{ @$pinjam->barang->kodebarang }}<p>
                                 </td>
+                                <td>{{ $pinjam->jumlah }}</td>
                                 <td>{{ ucfirst(config('custom.tujuan.'.$pinjam->tujuan)) }}</td>
                                 <td>{{ ddmmyyyy($pinjam->tgl_awal) }}</td>
                                 <td>{{ ddmmyyyy($pinjam->tgl_akhir) }}</td>

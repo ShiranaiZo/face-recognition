@@ -57,6 +57,7 @@
                             <th>No</th>
                             <th>Nama Pegawai</th>
                             <th>Nama Barang</th>
+                            <th>Jumlah</th>
                             <th>Tujuan</th>
                             <th>Tanggal Awal</th>
                             <th>Tanggal Akhir</th>
@@ -72,6 +73,7 @@
                                     <h6>{{ @$riwayat->barang->namabarang }}</h6>
                                     <p>{{ @$riwayat->barang->kodebarang }}<p>
                                 </td>
+                                <td>{{ @$riwayat->jumlah }}</td>
                                 <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
                                 <td>{{ ddmmyyyy($riwayat->tgl_awal) }}</td>
                                 <td>{{ ddmmyyyy($riwayat->tgl_akhir) }}</td>

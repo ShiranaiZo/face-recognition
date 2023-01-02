@@ -77,6 +77,7 @@
                     <th style="text-align: center">No</th>
                     <th style="text-align: center">Nama Pegawai</th>
                     <th style="text-align: center">Nama Barang</th>
+                    <th style="text-align: center">Jumlah</th>
                     <th style="text-align: center">Tujuan</th>
                     <th style="text-align: center">Tanggal Awal</th>
                     <th style="text-align: center">Tanggal Akhir</th>
@@ -93,6 +94,7 @@
                                 <h3>{{ @$riwayat->barang->namabarang }}</h3>
                                 <p>{{ @$riwayat->barang->kodebarang }}<p>
                             </td>
+                            <td>{{ $riwayat->jumlah }}</td>
                             <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
                             <td>{{ ddmmyyyy($riwayat->tgl_awal) }}</td>
                             <td>{{ ddmmyyyy($riwayat->tgl_akhir) }}</td>
