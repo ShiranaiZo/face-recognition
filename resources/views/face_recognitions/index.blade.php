@@ -281,7 +281,7 @@
                         }else{
                             Swal.fire({
                                 icon: "error",
-                                title: "Wajah tidak di kenali"
+                                title: "Wajah tidak di kenali, hubungi Admin untuk training data."
                             })
                         }
                     }
