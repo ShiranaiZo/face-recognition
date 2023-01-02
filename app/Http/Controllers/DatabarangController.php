@@ -90,8 +90,12 @@ class DatabarangController extends Controller
         ]);
 
         $data = $request->except('_method', '_token');
-        $data_barang = Databarang::find($id)->update($data);
 
+        if (!$request->get('jenis')) {
+            $data['jenis'] = null;
+        }
+
+        $data_barang = Databarang::find($id)->update($data);
         return redirect('admin/data-barang')->with('success', 'Data Barang Diubah!');
     }
 
