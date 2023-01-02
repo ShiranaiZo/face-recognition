@@ -4,7 +4,11 @@
     }
 
     function ddmmyyyy($value){
-        return date("d-m-Y", strtotime($value));
+        if ($value) {
+            return date("d-m-Y", strtotime($value));
+        }else{
+            return null;
+        }
     }
 
     function ddmmyyyy_now(){
