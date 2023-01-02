@@ -93,7 +93,7 @@
                                     <p>{{ @$keluar->barang->kodebarang }}<p>
                                 </td>
                                 <td>{{ $keluar->jumlah }}</td>
-                                <td>{{ ucfirst(config('custom.tujuan.'.$keluar->tujuan)) }}</td>
+                                <td>{{ $keluar->tujuan_text }}</td>
                                 <td>{{ ddmmyyyy($keluar->tgl_awal) }}</td>
                                 <td>{{ ddmmyyyy($keluar->tgl_akhir) }}</td>
 
@@ -133,7 +133,7 @@
                                     <p>{{ @$pinjam->barang->kodebarang }}<p>
                                 </td>
                                 <td>{{ $pinjam->jumlah }}</td>
-                                <td>{{ ucfirst(config('custom.tujuan.'.$pinjam->tujuan)) }}</td>
+                                <td style="max-width: 200px;">{{ $pinjam->tujuan_text }}</td>
                                 <td>{{ ddmmyyyy($pinjam->tgl_awal) }}</td>
                                 <td>{{ ddmmyyyy($pinjam->tgl_akhir) }}</td>
 

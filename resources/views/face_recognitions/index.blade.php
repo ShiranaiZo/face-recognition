@@ -166,6 +166,8 @@
                                         </tbody>
                                     </table>
                                     {{-- <video id="scan_qrcode_pegawai" width="100%"></video> --}}
+
+                                    <textarea class="form-control" placeholder="Tujuan" id="textarea_tujuan" style="height: 68px;" name="tujuan_text"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -205,9 +207,11 @@
             if (key_tujuan == 'PM' || key_tujuan == 'PN') {
                 $('#form_tujuan').attr('action', "{{ url('riwayat') }}")
                 $('#method_form_tujuan').val('POST')
+                $('#textarea_tujuan').attr('disabled', false).val("").show()
             }else{
                 $('#form_tujuan').attr('action', "{{ url('riwayat/update') }}")
                 $('#method_form_tujuan').val('PATCH')
+                $('#textarea_tujuan').attr('disabled', true).val("").hide()
             }
         }
 

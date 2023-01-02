@@ -67,6 +67,7 @@ class RiwayatController extends Controller
                     'kodebarang' => $data['kodebarang'][$key_idbarang],
                     'tujuan' => $data['tujuan'],
                     'jumlah' => $data['jumlah'][$key_idbarang],
+                    'tujuan_text' => $data['tujuan_text'],
                     'tgl_awal' => yyyymmdd_now()
                 ]);
 

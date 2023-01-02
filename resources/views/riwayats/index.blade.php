@@ -74,7 +74,7 @@
                                     <p>{{ @$riwayat->barang->kodebarang }}<p>
                                 </td>
                                 <td>{{ @$riwayat->jumlah }}</td>
-                                <td>{{ ucfirst(config('custom.tujuan.'.$riwayat->tujuan)) }}</td>
+                                <td style="max-width: 200px">{{ $riwayat->tujuan_text }}</td>
                                 <td>{{ ddmmyyyy($riwayat->tgl_awal) }}</td>
                                 <td>{{ ddmmyyyy($riwayat->tgl_akhir) }}</td>
 
