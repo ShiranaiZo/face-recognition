@@ -14,6 +14,10 @@ class FaceRecognitionController extends Controller
 {
     public function rekamDataWajah()
     {
+        if (!File::exists(public_path("face_recognition/datasementara"))) {
+            File::makeDirectory(public_path("face_recognition/datasementara"));
+        }
+
         $install_opencv = new Process("pip install opencv-python");
         $install_pillow = new Process("pip install opencv-python");
         $install_opencv->setTimeout(3600);
@@ -46,6 +50,10 @@ class FaceRecognitionController extends Controller
 
         $process = null;
         foreach ($daftar_pegawai as $key_pegawai => $pegawai) {
+            if (!File::exists(public_path("face_recognition/training"))) {
+                File::makeDirectory(public_path("face_recognition/training"));
+            }
+
             if (!File::exists(public_path("face_recognition/training/$pegawai->id"))) {
                 File::makeDirectory(public_path("face_recognition/training/$pegawai->id"));
             }

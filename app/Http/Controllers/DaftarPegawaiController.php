@@ -49,6 +49,18 @@ class DaftarPegawaiController extends Controller
 
         $data = $request->except('_method', '_token', 'fotopegawai');
         if($request->get('fotopegawai')){
+            if (!File::exists(public_path("attachments"))) {
+                File::makeDirectory(public_path("attachments"));
+            }
+
+            if(!File::exists(public_path("attachments/images"))){
+                File::makeDirectory(public_path("attachments/images"));
+            }
+
+            if(!File::exists(public_path("attachments/images/foto_pegawai"))){
+                File::makeDirectory(public_path("attachments/images/foto_pegawai"));
+            }
+
             $file = "attachments/images/foto_pegawai/".$request->get('fotopegawai').".jpg";
 
             // if ($request->get('fileOrCamera') == 1) {
@@ -82,7 +94,13 @@ class DaftarPegawaiController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::create($data);
 
-        File::makeDirectory(public_path("face_recognition/dataset/$daftar_pegawai->id"));
+        if (!File::exists(public_path("face_recognition/dataset"))) {
+            File::makeDirectory(public_path("face_recognition/dataset"));
+        }
+
+        if (!File::exists(public_path("face_recognition/dataset/$daftar_pegawai->id"))) {
+            File::makeDirectory(public_path("face_recognition/dataset/$daftar_pegawai->id"));
+        }
 
         for ($i=0; $i <= 30; $i++) {
             $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
@@ -173,6 +191,14 @@ class DaftarPegawaiController extends Controller
         // }
 
         $daftar_pegawai = Daftar_pegawai::find($id);
+
+        if (!File::exists(public_path("face_recognition/dataset"))) {
+            File::makeDirectory(public_path("face_recognition/dataset"));
+        }
+
+        if (!File::exists(public_path("face_recognition/dataset/$daftar_pegawai->id"))) {
+            File::makeDirectory(public_path("face_recognition/dataset/$daftar_pegawai->id"));
+        }
 
         if ($request->get('fotopegawai')) {
             for ($i=0; $i <= 30; $i++) {
