@@ -82,6 +82,18 @@ class FaceRecognitionController extends Controller
         $install_opencv->run();
         $install_pillow->run();
 
+        if (!File::exists(public_path("face_recognition/training"))) {
+            File::makeDirectory(public_path("face_recognition/training"));
+        }
+
+        if (!File::exists(public_path("face_recognition/training/$id"))) {
+            File::makeDirectory(public_path("face_recognition/training/$id"));
+        }
+
+        if (!File::exists(public_path("face_recognition/training/$id/trainer.yml"))) {
+            return response()->json(false);
+        }
+
         $path = public_path();
         $process = new Process("python ".public_path()."/face_recognition/face_recognition.py ".$path." ". $id);
         $process->setTimeout(3600);
