@@ -44,6 +44,7 @@ class FaceRecognitionController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::all();
 
+        $process = null;
         foreach ($daftar_pegawai as $key_pegawai => $pegawai) {
             if (!File::exists(public_path("face_recognition/training/$pegawai->id"))) {
                 File::makeDirectory(public_path("face_recognition/training/$pegawai->id"));
@@ -52,18 +53,18 @@ class FaceRecognitionController extends Controller
             $path = public_path();
             $process = new Process("python ".public_path()."/face_recognition/face_training.py ".$path." ". $pegawai->id);
             $process->run();
-        }
 
-        // executes after the command finishes
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            // executes after the command finishes
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
         }
 
         // Hapus Data sementara
         $all_files = File::allFiles('face_recognition/datasementara/');
         File::Delete($all_files);
 
-        return response()->json($process->getOutput());
+        return response()->json($process ? $process->getOutput() : '');
     }
 
     public function scanWajah($id)

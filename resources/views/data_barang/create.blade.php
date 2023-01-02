@@ -62,8 +62,19 @@
                             <div class="col-md-4">
                                 <label>Jumlah <span class="text-danger">*</span></label>
                             </div>
-                            <div class="col-md-8 form-group">
-                                <input type="text" id="jumlah" class="form-control  @error('jumlah') is-invalid @enderror" name="jumlah" placeholder="Jumlah" value="{{ old('jumlah') }}">
+                            <div class="col-md-3 form-group">
+                                {{-- <input type="text" id="jumlah" class="form-control  @error('jumlah') is-invalid @enderror" name="jumlah" placeholder="Jumlah" value="{{ old('jumlah') }}"> --}}
+                                <div class="input-group">
+                                    <button type="button" onclick="countPlusMinus(-1, '#jumlah', 1)" class="btn btn-light input-group-text">
+                                        <i class="bi bi-dash-lg"></i>
+                                    </button>
+
+                                    <input type="text" class="form-control text-center mask" placeholder="0" name="jumlah" value="1" id="jumlah">
+
+                                    <button type="button" onclick="countPlusMinus(1, '#jumlah', 1)" class="btn btn-light input-group-text">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -96,6 +107,8 @@
 @section('js')
     <script>
         $(document).ready(function () {
+            $('.mask').inputmask({"alias": "decimal", "groupSeparator": ",", "digits": 0 , "autoGroup": true, "clearMaskOnLostFocus": false, "allowMinus": false, max: 999999999, min:1 });
+
             // show and hide password
             $('#show').click(function(){
                 if($(this).is(':checked')){
@@ -110,6 +123,20 @@
         function preventDoubleClick(id_form, id_button){
             $('#'+id_button).attr('disabled', true)
             $('#'+id_form).submit()
+        }
+
+        // Function for increment and decrement button
+        function countPlusMinus(crement, id, limit = null){
+            let value = $(id).inputmask('unmaskedvalue')
+                value = parseInt(value)
+                value = isNaN(value) ? 0 : value
+                value += crement
+
+            if(value <= limit){
+                value = limit
+            }
+
+            $(id).val(value)
         }
     </script>
 @endsection

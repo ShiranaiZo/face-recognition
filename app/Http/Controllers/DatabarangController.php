@@ -38,6 +38,12 @@ class DatabarangController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kodebarang'=>'required',
+            'namabarang'=>'required',
+            'jumlah'=>'required',
+        ]);
+
         $data = $request->except('_method', '_token');
         $data_barang = Databarang::create($data);
 
@@ -77,6 +83,12 @@ class DatabarangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'kodebarang'=>'required',
+            'namabarang'=>'required',
+            'jumlah'=>'required',
+        ]);
+
         $data = $request->except('_method', '_token');
         $data_barang = Databarang::find($id)->update($data);
 
@@ -108,7 +120,7 @@ class DatabarangController extends Controller
                     $results['pesan'] = "Barang tidak sekali pakai, silahkan ke peminjaman";
                 }
             }else{
-                $results['pesan'] = "Barang tidak di temukan";
+                $results['pesan'] = "Barang tidak di temukan, pastikan QR Code anda benar";
             }
         }elseif ($tujuan == 'PM'){
             if ($results['data']){
@@ -116,7 +128,7 @@ class DatabarangController extends Controller
                     $results['pesan'] = "Barang sekali pakai, silahkan ke penggunaan";
                 }
             }else{
-                $results['pesan'] = "Barang tidak di temukan";
+                $results['pesan'] = "Barang tidak di temukan, pastikan QR Code anda benar";
             }
         }else {
             if ($results['data']){
@@ -126,7 +138,7 @@ class DatabarangController extends Controller
                     $results['pesan'] = "Anda belum meminjam barang ini";
                 }
             }else{
-                $results['pesan'] = "Barang tidak di temukan";
+                $results['pesan'] = "Barang tidak di temukan, pastikan QR Code anda benar";
             }
         }
 

@@ -40,6 +40,13 @@ class DaftarPegawaiController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'namapegawai'=>'required',
+            'jabatan'=>'required',
+            'fotopegawai'=>'required',
+        ]);
+
+
         $data = $request->except('_method', '_token', 'fotopegawai');
         if($request->get('fotopegawai')){
             $file = "attachments/images/foto_pegawai/".$request->get('fotopegawai').".jpg";
@@ -126,6 +133,11 @@ class DaftarPegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'namapegawai'=>'required',
+            'jabatan'=>'required',
+        ]);
+
         $data = $request->except('_method', '_token', 'fotopegawai');
 
         // if($request->get('fotopegawai')){
@@ -162,16 +174,18 @@ class DaftarPegawaiController extends Controller
 
         $daftar_pegawai = Daftar_pegawai::find($id);
 
-        for ($i=0; $i <= 30; $i++) {
-            $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
+        if ($request->get('fotopegawai')) {
+            for ($i=0; $i <= 30; $i++) {
+                $folderFilePathSebelum = "face_recognition/datasementara/".$request->get('fotopegawai').".".$i.".jpg";
 
-            if ($i < 30){
-                $folderFilePathTujuan = "face_recognition/dataset/".$daftar_pegawai->id."/User.".$daftar_pegawai->id.'.'.$i.".jpg";
-            }else{
-                $folderFilePathTujuan = $daftar_pegawai->fotopegawai;
+                if ($i < 30){
+                    $folderFilePathTujuan = "face_recognition/dataset/".$daftar_pegawai->id."/User.".$daftar_pegawai->id.'.'.$i.".jpg";
+                }else{
+                    $folderFilePathTujuan = $daftar_pegawai->fotopegawai;
+                }
+
+                rename($folderFilePathSebelum, $folderFilePathTujuan);
             }
-
-            rename($folderFilePathSebelum, $folderFilePathTujuan);
         }
 
         $daftar_pegawai->update($data);

@@ -29,6 +29,12 @@
             <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible show fade">
+            <i class="bi bi-file-excel"></i> {{session('error')}}
+            <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     <section class="section">
         <div class="card align-items-center d-none" id="scan_qrcode">
@@ -104,8 +110,8 @@
 
                     <form action="{{ url('riwayat') }}" method="post" id="form_tujuan">
                         @csrf
-
                         <input type="hidden" name="_method" id="method_form_tujuan">
+                        {{-- <input type="hidden" name="_token" id="token_form_tujuan"> --}}
 
                         <!-- list Input Hidden -->
                         <div id="list_input_hidden">
@@ -206,14 +212,18 @@
         }
 
         // Function for increment and decrement button
-        function countPlusMinus(crement, id, limit = null){
+        function countPlusMinus(crement, id, min = null, max = null){
             let value = $(id).inputmask('unmaskedvalue')
                 value = parseInt(value)
                 value = isNaN(value) ? 0 : value
                 value += crement
 
-            if(value <= limit){
-                value = limit
+            if(value <= min){
+                value = parseInt(min)
+            }
+
+            if (value >= max) {
+                value = parseInt(max)
             }
 
             $(id).val(value)
@@ -228,7 +238,6 @@
         }
 
         $(document).ready(function () {
-             $('.mask').inputmask({"alias": "decimal", "groupSeparator": ",", "digits": 0 , "autoGroup": true, "clearMaskOnLostFocus": false, "allowMinus": false, max: 999999999, min:1 });
 
             let id = JSON.parse(sessionStorage.getItem("id"));
 
@@ -245,7 +254,6 @@
                 $('#scan_wajah').addClass('d-none')
                 $('#wrap_tujuan').removeClass('d-none')
 
-                console.log(id, 'ini harusnya masuk')
                 $('#idpegawai').val(id)
             }else{
                 $('#scan_qrcode').removeClass('d-none')
@@ -379,17 +387,17 @@
                                                 <tr class="item-${data.id}">
                                                     <td style="width:150px">
                                                         <h6>${data.namabarang}</h6>
-                                                        <p>${data.kodebarang}</p>
+                                                        <p>${data.kodebarang} (Stock: ${data.jumlah})</p>
                                                     </td>
                                                     <td class="text-end" style="width:155px">
                                                         <div class="input-group">
-                                                            <button type="button" onclick="countPlusMinus(-1, '#jumlah_${data.id}', 1)" class="btn btn-light input-group-text">
+                                                            <button type="button" onclick="countPlusMinus(-1, '#jumlah_${data.id}', 1, ${data.jumlah})" class="btn btn-light input-group-text">
                                                                 <i class="bi bi-dash-lg"></i>
                                                             </button>
 
                                                             <input type="text" class="form-control text-center mask" placeholder="0" name="jumlah[${data.id}]" value="1" id="jumlah_${data.id}">
 
-                                                            <button type="button" onclick="countPlusMinus(1, '#jumlah_${data.id}', 1)" class="btn btn-light input-group-text">
+                                                            <button type="button" onclick="countPlusMinus(1, '#jumlah_${data.id}', 1, ${data.jumlah})" class="btn btn-light input-group-text">
                                                                 <i class="bi bi-plus-lg"></i>
                                                             </button>
                                                         </div>
@@ -407,6 +415,11 @@
                                                         </div>
                                                     `
                                 }
+
+                                setTimeout(function() {
+                                    $('#jumlah_'+data.id).inputmask({"alias": "decimal", "groupSeparator": ",", "digits": 0 , "autoGroup": true, "clearMaskOnLostFocus": false, "allowMinus": false, max: data.jumlah, min:1 });
+                                }, 1000);
+
                             }else{
                                 html += `
                                             <tr class="alert-barang">
