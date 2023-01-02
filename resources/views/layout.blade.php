@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="float-end">
-                                <p>Modified with <span class="text-info"></span>@kptikbmnsurabaya 2022</p>
+                                <p>Modified with <span class="text-info">@kptikbmnsurabaya 2022</span></p>
                             </div>
                         </div>
                     </footer>
