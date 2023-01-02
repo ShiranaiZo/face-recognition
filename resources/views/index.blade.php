@@ -61,12 +61,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                <script>
-                    $(document).ready(function () {
-                    // Init Datatable
-                    $("#data_barang").DataTable();
-                    });
-                </script>
             </div>
         </div>
 
@@ -107,12 +101,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                <script>
-                    $(document).ready(function () {
-                    // Init Datatable
-                    $("#BK").DataTable();
-                    });
-                </script>
             </div>
         </div>
 
@@ -153,13 +141,19 @@
                         @endforeach
                     </tbody>
                 </table>
-                <script>
-                    $(document).ready(function () {
-                    // Init Datatable
-                    $("#BP").DataTable();
-                    });
-                </script>
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+                <script>
+                    $(document).ready(function () {
+                    // Init Datatable
+                    $("#data_barang").DataTable();
+                    $("#BK").DataTable();
+                    $("#BP").DataTable();
+                    });
+
+                </script>
 @endsection
