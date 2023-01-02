@@ -38,7 +38,9 @@ Route::group(['middleware' => ['auth']], function() {
 		// *****************CRUD Users********************
 			Route::resource('admin/users', 'UserController');
 			Route::resource('admin/daftar-pegawai', 'DaftarPegawaiController');
+			Route::get('admin/daftar-pegawai/{id}/export-qrcode', 'DaftarPegawaiController@exportQRCode');
 			Route::resource('admin/data-barang', 'DatabarangController');
+			Route::get('admin/data-barang/{id}/export-qrcode', 'DatabarangController@exportQRCode');
 			Route::get('admin/riwayat/cetak-pdf/{filter?}', 'RiwayatController@index');
 			Route::get('admin/riwayat/cetak-excel/{filter?}', 'RiwayatController@index');
 			Route::get('admin/riwayat/{filter?}', 'RiwayatController@index');

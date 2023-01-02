@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\File;
 
 use App\Model\Daftar_pegawai;
 
+use PDF;
+
 class DaftarPegawaiController extends Controller
 {
     /**
@@ -244,6 +246,15 @@ class DaftarPegawaiController extends Controller
         $pegawai = Daftar_pegawai::find($id);
 
         return response()->json($pegawai);
+    }
+
+    public function exportQRCode($id)
+    {
+        $results['pegawai'] = Daftar_pegawai::find($id);
+        $pdf = PDF::loadview('daftar_pegawai.cetakpdf', $results)
+                  ->setPaper('legal', 'landscape');
+
+        return $pdf->stream('pegawai'.($results['pegawai'] ? '_'.$results['pegawai']->namapegawai : '').'_'.ddmmyyyy_now().'.pdf');
     }
 
 }

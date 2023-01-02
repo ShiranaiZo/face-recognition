@@ -55,7 +55,11 @@
                             <td>{{ $pegawai->jabatan }}</td>
                             <td>
                                 <div class="buttons">
-                                    <a href="{{ url('admin/daftar-pegawai/'.$pegawai->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
+                                    <a  target="_blank" href="{{ url('admin/daftar-pegawai/'.$pegawai->id.'/export-qrcode') }}" class="btn icon btn-info tooltip-class mr-0" data-bs-placement="left" title="Export Qr Code">
+                                        <i class="bi bi-qr-code"></i>
+                                    </a>
+
+                                    <a href="{{ url('admin/daftar-pegawai/'.$pegawai->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="bottom" title="Edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
 

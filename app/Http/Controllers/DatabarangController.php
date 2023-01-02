@@ -6,6 +6,8 @@ use App\Model\Databarang;
 use App\Model\Riwayat;
 use Illuminate\Http\Request;
 
+use PDF;
+
 class DatabarangController extends Controller
 {
     /**
@@ -147,5 +149,14 @@ class DatabarangController extends Controller
         }
 
         return response()->json($results);
+    }
+
+    public function exportQRCode($id)
+    {
+        $results['barang'] = Databarang::find($id);
+        $pdf = PDF::loadview('data_barang.cetakpdf', $results)
+                  ->setPaper('legal', 'landscape');
+
+        return $pdf->stream('barang'.($results['barang'] ? '_'.$results['barang']->namabarang : '').'_'.ddmmyyyy_now().'.pdf');
     }
 }
