@@ -19,7 +19,7 @@ class FaceRecognitionController extends Controller
         }
 
         $install_opencv = new Process("pip install opencv-python");
-        $install_pillow = new Process("pip install opencv-python");
+        $install_pillow = new Process("pip install pillow");
         $install_opencv->setTimeout(3600);
         $install_pillow->setTimeout(3600);
         $install_opencv->run();
@@ -42,7 +42,9 @@ class FaceRecognitionController extends Controller
     public function trainingData()
     {
         $install_opencv = new Process("pip install opencv-python");
-        $install_pillow = new Process("pip install opencv-python");
+        $install_pillow = new Process("pip install pillow");
+        $install_opencv->setTimeout(3600);
+        $install_pillow->setTimeout(3600);
         $install_opencv->run();
         $install_pillow->run();
 
@@ -78,7 +80,9 @@ class FaceRecognitionController extends Controller
     public function scanWajah($id)
     {
         $install_opencv = new Process("pip install opencv-python");
-        $install_pillow = new Process("pip install opencv-python");
+        $install_pillow = new Process("pip install pillow");
+        $install_opencv->setTimeout(3600);
+        $install_pillow->setTimeout(3600);
         $install_opencv->run();
         $install_pillow->run();
 
